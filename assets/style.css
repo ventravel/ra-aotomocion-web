@@ -83,12 +83,14 @@ nav.main a.btn { margin-left: 14px; }
   border-bottom: 1px solid var(--line);
 }
 .hero .wrap {
-  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;
-  padding: 64px 6vw 60px;
+  max-width: 760px; margin: 0 auto; text-align: center;
+  padding: 72px 6vw 64px;
 }
 .eyebrow { color: var(--blue); font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
 .hero h1 { font-size: clamp(32px, 4.6vw, 52px); line-height: 1.08; margin-bottom: 18px; color: var(--anthracite); text-transform: none; letter-spacing: normal; font-weight: 800; }
-.hero p.lead { color: var(--muted); font-size: 18px; max-width: 540px; margin-bottom: 22px; }
+.hero p.lead { color: var(--muted); font-size: 18px; max-width: 540px; margin: 0 auto 22px; }
+.hero .checklist { max-width: 420px; margin: 0 auto 30px; text-align: left; }
+.hero .cta-row { justify-content: center; }
 
 .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
 .checklist li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--anthracite); font-size: 15px; }
@@ -103,8 +105,6 @@ nav.main a.btn { margin-left: 14px; }
 .icn-40 { width: 40px; height: 40px; }
 .icn-56 { width: 56px; height: 56px; }
 .wa-svg { fill: currentColor; flex-shrink: 0; vertical-align: middle; }
-
-.hero .visual { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 28px; box-shadow: 0 20px 50px -25px rgba(11,61,145,0.35); }
 
 /* Sections */
 section.block { padding: 64px 6vw; border-top: 1px solid var(--line); }
@@ -227,8 +227,7 @@ footer.site .fbottom { display: flex; justify-content: space-between; gap: 16px;
 }
 
 @media (max-width: 820px) {
-  .hero .wrap { grid-template-columns: 1fr; padding: 36px 5vw 44px; gap: 30px; }
-  .hero .visual { padding: 18px; max-width: 320px; margin: 0 auto; }
+  .hero .wrap { padding: 36px 5vw 44px; }
   section.block { padding: 44px 5vw; }
   nav.main a.navlink { display: none; }
   header.site { padding: 10px 5vw; }
