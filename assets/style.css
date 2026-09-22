@@ -149,10 +149,14 @@ section.block.dark h2.h2 { color: #fff; }
 /* Courtesy car */
 .courtesy { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
 .courtesy .panel {
-  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 18px; padding: 40px;
-  text-align: center;
+  background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 0 0 30px;
+  text-align: center; overflow: hidden;
 }
-.courtesy .panel .icon { margin-bottom: 14px; }
+.courtesy .panel .panel-photo {
+  width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 20px;
+}
+.courtesy .panel h3 { padding: 0 24px; }
+.courtesy .panel .note { padding: 0 24px; }
 .courtesy .note { color: var(--muted); font-size: 13px; margin-top: 14px; }
 
 /* Workshop / gallery */
