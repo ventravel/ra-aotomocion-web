@@ -146,8 +146,14 @@ section.block.dark h2.h2 { color: #fff; }
 .why-card h3 { font-size: 18px; margin-bottom: 8px; color: var(--anthracite); }
 .why-card p { color: var(--muted); font-size: 15px; }
 
+/* CTA band (after Servicios) */
+.cta-band { padding: 32px 6vw; background: linear-gradient(160deg, #eef4fd, #e4edfb); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.cta-band .wrap { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; text-align: center; }
+.cta-band p { color: var(--anthracite); font-size: 16px; font-weight: 600; margin: 0; }
+
 /* Courtesy car */
 .courtesy { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.courtesy .section-sub { margin-bottom: 22px; }
 .courtesy .panel {
   background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 0 0 30px;
   text-align: center; overflow: hidden;
@@ -171,6 +177,7 @@ section.block.dark h2.h2 { color: #fff; }
   aspect-ratio: 3 / 4; width: 100%; height: 100%; object-fit: cover;
   border-radius: 12px; border: 1px solid var(--line);
 }
+.gallery-note { margin-top: 14px; font-size: 13px; }
 
 /* Quote / estimate section */
 .quote-box { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 36px; max-width: 720px; margin: 0 auto; }
@@ -188,6 +195,8 @@ section.block.dark h2.h2 { color: #fff; }
 .review-card .quote { color: var(--anthracite); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 .review-card .author { font-weight: 700; color: var(--anthracite); font-size: 14px; }
 .review-cta { text-align: center; border-top: 1px solid var(--line); padding-top: 30px; }
+.review-cta .section-sub { margin-bottom: 18px; }
+.review-cta .cta-row, .final-contact .cta-row { justify-content: center; }
 .stars { color: #f5a623; font-size: 20px; letter-spacing: 2px; margin-bottom: 10px; }
 
 /* Location */
@@ -197,10 +206,12 @@ section.block.dark h2.h2 { color: #fff; }
 .info dd { font-size: 17px; color: var(--anthracite); }
 .map-frame { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
 .map-frame iframe { width: 100%; height: 100%; border: 0; }
+.location-grid .cta-row { margin-top: 26px; }
 
 /* Final contact */
 .final-contact { text-align: center; }
 .final-contact h2.h2 { color: #fff; }
+.final-contact .muted-on-dark { margin-bottom: 30px; }
 
 /* Footer */
 footer.site { background: var(--anthracite); color: #c7cdd8; padding: 48px 6vw 28px; }
