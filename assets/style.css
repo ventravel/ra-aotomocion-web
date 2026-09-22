@@ -175,6 +175,10 @@ section.block.dark h2.h2 { color: #fff; }
   border: 1px dashed var(--line); border-radius: 14px; padding: 22px; background: var(--bg-alt);
   color: var(--muted); font-size: 14px; text-align: center;
 }
+.review-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+.review-card .stars-sm { color: #f5a623; font-size: 15px; letter-spacing: 1px; margin-bottom: 12px; }
+.review-card .quote { color: var(--anthracite); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
+.review-card .author { font-weight: 700; color: var(--anthracite); font-size: 14px; }
 .review-cta { text-align: center; border-top: 1px solid var(--line); padding-top: 30px; }
 .stars { color: #f5a623; font-size: 20px; letter-spacing: 2px; margin-bottom: 10px; }
 
