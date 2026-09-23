@@ -115,7 +115,7 @@
     if (registros.length === 0) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
-      td.colSpan = 4;
+      td.colSpan = 5;
       td.textContent = 'Sin fichajes este mes.';
       tr.appendChild(td);
       tbody.appendChild(tr);
@@ -128,6 +128,25 @@
         td.textContent = val;
         tr.appendChild(td);
       });
+
+      const tdAcciones = document.createElement('td');
+      const btnBorrar = document.createElement('button');
+      btnBorrar.type = 'button';
+      btnBorrar.className = 'link-borrar';
+      btnBorrar.textContent = 'Eliminar';
+      btnBorrar.addEventListener('click', () => {
+        if (!confirm(`¿Eliminar este fichaje de ${r.empleado} (${r.fecha} ${r.hora})?`)) return;
+        authFetch('/.netlify/functions/delete-fichaje', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ month: r.fecha.slice(0, 7), id: r.id }),
+        })
+          .then((res) => res.json())
+          .then(({ registros }) => renderFichajes(registros));
+      });
+      tdAcciones.appendChild(btnBorrar);
+      tr.appendChild(tdAcciones);
+
       tbody.appendChild(tr);
     });
   }
