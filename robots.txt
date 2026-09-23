@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /firmar/
-Disallow: /admin/
+Disallow: /firmar.html
+Disallow: /admin.html
 
 Sitemap: https://tallerraautomocion.es/sitemap.xml

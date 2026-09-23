@@ -1,0 +1,82 @@
+.wrap-narrow { max-width: 640px; }
+
+.orden-datos { margin-bottom: 24px; }
+
+.pdf-frame {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 420px;
+  margin-bottom: 8px;
+}
+.pdf-frame iframe { width: 100%; height: 100%; border: 0; }
+
+.firma-pad-wrap {
+  border: 2px dashed var(--line);
+  border-radius: 10px;
+  background: #fff;
+  margin: 10px 0 12px;
+  touch-action: none;
+}
+#firma-pad { display: block; width: 100%; height: 200px; cursor: crosshair; }
+
+.campo-nombre {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--anthracite);
+  margin: 16px 0 6px;
+}
+.campo-nombre input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.campo-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--anthracite);
+  margin: 16px 0;
+}
+.campo-checkbox input { margin-top: 3px; }
+
+.firma-error {
+  color: #b3261e;
+  background: #fdecea;
+  border: 1px solid #f4c7c3;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  margin: 12px 0;
+}
+
+.firmar-wrap { padding-top: 40px; padding-bottom: 60px; }
+
+#resultado-orden {
+  margin: 20px 0 40px;
+  padding: 16px;
+  background: var(--bg-alt);
+  border-radius: 10px;
+}
+
+.tabla-ordenes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 14px;
+}
+.tabla-ordenes th, .tabla-ordenes td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.tabla-ordenes th { color: var(--muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+.acciones-orden a { font-size: 13px; }

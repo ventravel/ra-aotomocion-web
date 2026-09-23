@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firmar orden de reparación | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block firmar-wrap">
+    <div class="wrap wrap-narrow">
+
+      <div id="estado-cargando">
+        <p class="section-sub">Cargando la orden de reparación…</p>
+      </div>
+
+      <div id="estado-error" hidden>
+        <h1 class="h2">No se ha podido cargar la orden</h1>
+        <p class="section-sub" id="error-mensaje">Comprueba que el enlace es correcto o contacta con el taller.</p>
+      </div>
+
+      <div id="estado-firmado-ya" hidden>
+        <h1 class="h2">Este documento ya ha sido firmado</h1>
+        <p class="section-sub">Gracias, ya quedó registrada la firma. Puedes descargar tu copia:</p>
+        <a class="btn btn-primary" id="link-descarga-firmado" href="#" target="_blank" rel="noopener">Descargar PDF firmado</a>
+      </div>
+
+      <div id="estado-confirmado" hidden>
+        <h1 class="h2">Firma enviada correctamente</h1>
+        <p class="section-sub">Gracias. Ya hemos registrado tu conformidad con la orden de reparación.</p>
+        <a class="btn btn-primary" id="link-descarga-confirmado" href="#" target="_blank" rel="noopener">Descargar tu copia firmada</a>
+      </div>
+
+      <form id="form-firma" hidden>
+        <h1 class="h2">Orden de reparación</h1>
+        <dl class="info orden-datos">
+          <dt>Cliente</dt>
+          <dd id="dato-cliente"></dd>
+          <dt>Vehículo</dt>
+          <dd id="dato-vehiculo"></dd>
+        </dl>
+
+        <p class="section-sub">Revisa el documento antes de firmar:</p>
+        <div class="pdf-frame">
+          <iframe id="pdf-viewer" title="Orden de reparación en PDF"></iframe>
+        </div>
+        <p><a id="link-pdf-nueva-pestana" href="#" target="_blank" rel="noopener">Abrir el PDF en una pestaña nueva</a></p>
+
+        <p class="section-sub">Firma aquí:</p>
+        <div class="firma-pad-wrap">
+          <canvas id="firma-pad" width="600" height="200" aria-label="Recuadro para firmar con el dedo o el ratón"></canvas>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-borrar-firma">Borrar firma</button>
+
+        <label class="campo-nombre">
+          Nombre completo de quien firma
+          <input type="text" id="input-nombre-firmante" required>
+        </label>
+
+        <label class="campo-checkbox">
+          <input type="checkbox" id="input-conformidad" required>
+          He revisado el documento y autorizo la reparación conforme a lo descrito.
+        </label>
+
+        <p id="firma-error" class="firma-error" hidden></p>
+
+        <button type="submit" class="btn btn-whatsapp" id="btn-enviar-firma">Firmar y enviar</button>
+      </form>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fbottom">
+      <div>© 2026 RA Automoción S.L. · CIF B88868468</div>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/firmar.js?v=1"></script>
+</body>
+</html>
