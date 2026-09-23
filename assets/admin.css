@@ -80,3 +80,8 @@
 }
 .tabla-ordenes th { color: var(--muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
 .acciones-orden a { font-size: 13px; }
+.link-borrar {
+  background: none; border: none; padding: 0; margin: 0;
+  color: #b3261e; font-size: 13px; cursor: pointer; text-decoration: underline;
+  font-family: inherit;
+}

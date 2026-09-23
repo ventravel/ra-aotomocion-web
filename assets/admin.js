@@ -182,6 +182,21 @@
         tdAcciones.appendChild(linkFirmado);
       }
 
+      const btnBorrar = document.createElement('button');
+      btnBorrar.type = 'button';
+      btnBorrar.className = 'link-borrar';
+      btnBorrar.textContent = 'Eliminar';
+      btnBorrar.addEventListener('click', () => {
+        if (!confirm(`¿Eliminar la orden de ${o.cliente}? Esta acción no se puede deshacer.`)) return;
+        authFetch('/.netlify/functions/delete-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: o.id }),
+        }).then(() => cargarOrdenes());
+      });
+      tdAcciones.appendChild(document.createTextNode(' · '));
+      tdAcciones.appendChild(btnBorrar);
+
       tr.appendChild(tdFecha);
       tr.appendChild(tdCliente);
       tr.appendChild(tdVehiculo);
