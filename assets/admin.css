@@ -85,3 +85,14 @@
   color: #b3261e; font-size: 13px; cursor: pointer; text-decoration: underline;
   font-family: inherit;
 }
+
+.fichar-botones { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+.fichar-btn { width: 100%; padding: 22px; font-size: 18px; }
+
+.empleados-lista { list-style: none; display: grid; gap: 10px; margin: 16px 0 28px; }
+.empleados-lista li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 15px;
+}
+.form-inline { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 12px; }
+.form-inline .campo-nombre { flex: 1; margin: 0; }

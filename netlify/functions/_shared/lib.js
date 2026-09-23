@@ -16,6 +16,28 @@ function fileStore() {
   return getStore(blobConfig('orders-files'));
 }
 
+function rrhhStore() {
+  return getStore(blobConfig('rrhh'));
+}
+
+function madridDateParts(date) {
+  const parts = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Madrid',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date);
+  const get = (type) => parts.find((p) => p.type === type).value;
+  return {
+    fecha: `${get('year')}-${get('month')}-${get('day')}`,
+    hora: `${get('hour')}:${get('minute')}:${get('second')}`,
+  };
+}
+
 function checkAdmin(event) {
   const provided = event.headers['x-admin-password'] || '';
   const expected = process.env.ADMIN_PASSWORD || '';
@@ -30,4 +52,4 @@ function json(statusCode, body) {
   };
 }
 
-module.exports = { metaStore, fileStore, checkAdmin, json };
+module.exports = { metaStore, fileStore, rrhhStore, checkAdmin, json, madridDateParts };

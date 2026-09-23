@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fichar entrada/salida | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Control horario</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block firmar-wrap">
+    <div class="wrap wrap-narrow">
+
+      <h1 class="h2">Fichar entrada / salida</h1>
+
+      <div id="ficha-form">
+        <label class="campo-nombre">
+          Selecciona tu nombre
+          <select id="select-empleado">
+            <option value="">Cargando…</option>
+          </select>
+        </label>
+
+        <p id="ficha-error" class="firma-error" hidden></p>
+
+        <div class="fichar-botones">
+          <button type="button" class="btn btn-whatsapp fichar-btn" id="btn-entrada">Fichar entrada</button>
+          <button type="button" class="btn btn-primary fichar-btn" id="btn-salida">Fichar salida</button>
+        </div>
+      </div>
+
+      <div id="ficha-confirmacion" hidden>
+        <h1 class="h2" id="confirmacion-titulo">Registrado</h1>
+        <p class="section-sub" id="confirmacion-detalle"></p>
+        <button type="button" class="btn btn-secondary" id="btn-fichar-otra-vez">Fichar otra vez</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fbottom">
+      <div>© 2026 RA Automoción S.L. · CIF B88868468</div>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/fichar.js?v=1"></script>
+</body>
+</html>

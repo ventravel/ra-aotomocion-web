@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control horario | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Control horario</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2">Trabajadores</h1>
+        <ul class="empleados-lista" id="lista-empleados"></ul>
+        <div class="form-inline">
+          <label class="campo-nombre">
+            Nombre del nuevo trabajador
+            <input type="text" id="f-nuevo-empleado">
+          </label>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-anadir-empleado">Añadir</button>
+        </div>
+        <p id="empleado-error" class="firma-error" hidden></p>
+
+        <h2 class="h2">Registros</h2>
+        <div class="form-inline">
+          <label class="campo-nombre">
+            Mes
+            <input type="month" id="f-mes">
+          </label>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-ver-mes">Ver</button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-exportar">Descargar CSV (Excel)</button>
+        </div>
+
+        <table class="tabla-ordenes">
+          <thead>
+            <tr>
+              <th>Empleado</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-fichajes-body"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/fichaje-admin.js?v=1"></script>
+</body>
+</html>
