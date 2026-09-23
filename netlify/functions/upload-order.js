@@ -1,5 +1,5 @@
 const { randomUUID } = require('crypto');
-const { metaStore, fileStore, checkAdmin, json } = require('./_lib');
+const { metaStore, fileStore, checkAdmin, json } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {

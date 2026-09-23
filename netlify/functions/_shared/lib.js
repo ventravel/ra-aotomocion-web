@@ -1,11 +1,19 @@
 const { getStore } = require('@netlify/blobs');
 
+function blobConfig(name) {
+  return {
+    name,
+    siteID: process.env.BLOBS_SITE_ID,
+    token: process.env.BLOBS_TOKEN,
+  };
+}
+
 function metaStore() {
-  return getStore('orders-meta');
+  return getStore(blobConfig('orders-meta'));
 }
 
 function fileStore() {
-  return getStore('orders-files');
+  return getStore(blobConfig('orders-files'));
 }
 
 function checkAdmin(event) {

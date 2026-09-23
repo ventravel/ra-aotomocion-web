@@ -1,5 +1,5 @@
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
-const { metaStore, fileStore, json } = require('./_lib');
+const { metaStore, fileStore, json } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {

@@ -1,4 +1,4 @@
-const { fileStore, metaStore } = require('./_lib');
+const { fileStore, metaStore } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
