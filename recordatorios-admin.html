@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recordatorios de ITV y revisión | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Recordatorios de ITV y revisión</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2" id="form-titulo">Añadir vehículo</h1>
+        <form id="form-recordatorio">
+          <input type="hidden" id="f-id">
+          <label class="campo-nombre">
+            Nombre del cliente
+            <input type="text" id="f-cliente" required>
+          </label>
+          <label class="campo-nombre">
+            Teléfono (para el enlace de WhatsApp)
+            <input type="tel" id="f-telefono" placeholder="624482814">
+          </label>
+          <label class="campo-nombre">
+            Matrícula
+            <input type="text" id="f-matricula" required>
+          </label>
+          <label class="campo-nombre">
+            Vehículo (marca y modelo)
+            <input type="text" id="f-vehiculo">
+          </label>
+          <label class="campo-nombre">
+            Qué se hizo
+            <input type="text" id="f-trabajo" placeholder="Ej: cambio de aceite y filtros">
+          </label>
+          <label class="campo-nombre">
+            Próxima ITV
+            <input type="date" id="f-itv">
+          </label>
+          <label class="campo-nombre">
+            Próxima revisión
+            <input type="date" id="f-revision">
+          </label>
+          <p id="recordatorio-error" class="firma-error" hidden></p>
+          <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+          <button type="button" class="btn btn-secondary" id="btn-cancelar-edicion" hidden>Cancelar edición</button>
+        </form>
+
+        <h2 class="h2">Vehículos</h2>
+        <p class="section-sub">Los que vencen en 15 días o menos aparecen resaltados arriba.</p>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-refrescar">Actualizar lista</button>
+        <table class="tabla-ordenes">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Matrícula / Vehículo</th>
+              <th>Trabajo</th>
+              <th>ITV</th>
+              <th>Revisión</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tabla-recordatorios-body"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/recordatorios-admin.js?v=1"></script>
+</body>
+</html>

@@ -4,5 +4,6 @@ Disallow: /firmar.html
 Disallow: /admin.html
 Disallow: /fichar.html
 Disallow: /fichaje-admin.html
+Disallow: /recordatorios-admin.html
 
 Sitemap: https://tallerraautomocion.es/sitemap.xml

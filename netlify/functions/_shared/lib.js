@@ -20,6 +20,10 @@ function rrhhStore() {
   return getStore(blobConfig('rrhh'));
 }
 
+function recordatoriosStore() {
+  return getStore(blobConfig('recordatorios'));
+}
+
 function madridDateParts(date) {
   const parts = new Intl.DateTimeFormat('sv-SE', {
     timeZone: 'Europe/Madrid',
@@ -52,4 +56,4 @@ function json(statusCode, body) {
   };
 }
 
-module.exports = { metaStore, fileStore, rrhhStore, checkAdmin, json, madridDateParts };
+module.exports = { metaStore, fileStore, rrhhStore, recordatoriosStore, checkAdmin, json, madridDateParts };
