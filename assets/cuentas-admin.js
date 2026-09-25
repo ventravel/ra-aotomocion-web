@@ -111,7 +111,7 @@
       circulo.style.height = diametro + 'px';
       circulo.title = `Mano de obra ${fmt(g.manoObra)} · Recambios ${fmt(g.recambios)} · IVA ${fmt(g.iva)}`;
       circulo.style.background = g.total > 0
-        ? `conic-gradient(var(--blue) 0% ${pManoObra}%, #f5a623 ${pManoObra}% ${pManoObra + pRecambios}%, #b7bdc9 ${pManoObra + pRecambios}% 100%)`
+        ? `conic-gradient(#1a7a4c 0% ${pManoObra}%, #b3261e ${pManoObra}% ${pManoObra + pRecambios}%, #b7bdc9 ${pManoObra + pRecambios}% 100%)`
         : '';
 
       card.appendChild(circulo);
