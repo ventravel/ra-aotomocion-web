@@ -39,5 +39,12 @@ exports.handler = async (event) => {
   for (const k of Object.keys(resumen)) resumen[k] = Math.round(resumen[k] * 100) / 100;
   resumen.ivaNeto = Math.round((resumen.ivaRepercutido - resumen.ivaSoportado) * 100) / 100;
 
+  // Margen en recambios: la diferencia entre lo cobrado al cliente por piezas
+  // y lo pagado al proveedor por esas piezas (aproximado por periodo, no pieza a pieza).
+  resumen.margenRecambios = Math.round((resumen.recambiosCobrados - resumen.recambiosGastados) * 100) / 100;
+  resumen.margenRecambiosPct = resumen.recambiosCobrados > 0
+    ? Math.round((resumen.margenRecambios / resumen.recambiosCobrados) * 1000) / 10
+    : 0;
+
   return json(200, { movimientos, resumen });
 };

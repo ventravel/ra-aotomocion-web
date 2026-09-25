@@ -70,17 +70,26 @@
 
   function agruparParaComparativa(movimientos, granularidad) {
     const grupos = {};
-    movimientos
-      .filter((m) => m.tipo === 'ingreso')
-      .forEach((m) => {
-        const { clave, etiqueta } = claveYEtiqueta(m.fecha, granularidad);
-        if (!grupos[clave]) grupos[clave] = { clave, etiqueta, manoObra: 0, recambios: 0, iva: 0 };
+    movimientos.forEach((m) => {
+      const { clave, etiqueta } = claveYEtiqueta(m.fecha, granularidad);
+      if (!grupos[clave]) grupos[clave] = { clave, etiqueta, manoObra: 0, recambios: 0, iva: 0, recambiosGastados: 0 };
+      if (m.tipo === 'ingreso') {
         grupos[clave].manoObra += m.manoObra || 0;
         grupos[clave].recambios += m.recambios || 0;
         grupos[clave].iva += m.iva || 0;
-      });
+      } else {
+        grupos[clave].recambiosGastados += m.recambios || 0;
+      }
+    });
     return Object.values(grupos)
-      .map((g) => ({ ...g, total: g.manoObra + g.recambios + g.iva }))
+      .map((g) => {
+        // Del total cobrado por recambios, una parte es lo que costaron al proveedor
+        // (coste real) y el resto es el margen que se gana en la pieza.
+        const costeRecambios = Math.min(g.recambios, g.recambiosGastados);
+        const margenRecambios = Math.max(0, g.recambios - costeRecambios);
+        return { ...g, costeRecambios, margenRecambios, total: g.manoObra + g.recambios + g.iva };
+      })
+      .filter((g) => g.total > 0)
       .sort((a, b) => a.clave.localeCompare(b.clave));
   }
 
@@ -100,7 +109,12 @@
     grupos.forEach((g) => {
       const diametro = g.total <= 0 ? MIN_PX : Math.round(MIN_PX + (MAX_PX - MIN_PX) * (g.total / maxTotal));
       const pManoObra = g.total > 0 ? (g.manoObra / g.total) * 100 : 0;
-      const pRecambios = g.total > 0 ? (g.recambios / g.total) * 100 : 0;
+      const pMargen = g.total > 0 ? (g.margenRecambios / g.total) * 100 : 0;
+      const pCoste = g.total > 0 ? (g.costeRecambios / g.total) * 100 : 0;
+      const c1 = pManoObra;
+      const c2 = c1 + pMargen;
+      const c3 = c2 + pCoste;
+      const margenPct = g.recambios > 0 ? Math.round((g.margenRecambios / g.recambios) * 100) : 0;
 
       const card = document.createElement('div');
       card.className = 'comp-card';
@@ -109,9 +123,9 @@
       circulo.className = 'comp-circulo';
       circulo.style.width = diametro + 'px';
       circulo.style.height = diametro + 'px';
-      circulo.title = `Mano de obra ${fmt(g.manoObra)} · Recambios ${fmt(g.recambios)} · IVA ${fmt(g.iva)}`;
+      circulo.title = `Mano de obra ${fmt(g.manoObra)} · Margen en recambios ${fmt(g.margenRecambios)} (${margenPct}%) · Coste de recambios ${fmt(g.costeRecambios)} · IVA ${fmt(g.iva)}`;
       circulo.style.background = g.total > 0
-        ? `conic-gradient(#1a7a4c 0% ${pManoObra}%, #b3261e ${pManoObra}% ${pManoObra + pRecambios}%, #b7bdc9 ${pManoObra + pRecambios}% 100%)`
+        ? `conic-gradient(#1a7a4c 0% ${c1}%, #4caf7d ${c1}% ${c2}%, #b3261e ${c2}% ${c3}%, #b7bdc9 ${c3}% 100%)`
         : '';
 
       card.appendChild(circulo);
@@ -205,15 +219,16 @@
       ['Mano de obra cobrada', r.manoObraCobrada, ''],
       ['Recambios cobrados', r.recambiosCobrados, ''],
       ['Recambios gastados', r.recambiosGastados, ''],
+      ['Margen en recambios', r.margenRecambios, 'positivo', ` (${r.margenRecambiosPct}%)`],
       ['Total cobrado', r.totalCobrado, 'positivo'],
       ['Total gastado', r.totalGastado, 'negativo'],
     ];
     const grid = document.getElementById('resumen-grid');
     grid.innerHTML = '';
-    cards.forEach(([label, valor, clase]) => {
+    cards.forEach(([label, valor, clase, extra]) => {
       const card = document.createElement('div');
       card.className = 'resumen-card ' + clase;
-      card.innerHTML = `<div class="label">${label}</div><div class="valor">${fmt(valor)}</div>`;
+      card.innerHTML = `<div class="label">${label}</div><div class="valor">${fmt(valor)}${extra || ''}</div>`;
       grid.appendChild(card);
     });
   }
