@@ -18,6 +18,58 @@
     return fetch(url, options);
   }
 
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('f-factura').addEventListener('change', (evt) => {
+    const file = evt.target.files[0];
+    if (!file) return;
+
+    const estadoEl = document.getElementById('factura-estado');
+    const avisosEl = document.getElementById('factura-avisos');
+    avisosEl.hidden = true;
+    estadoEl.hidden = false;
+    estadoEl.textContent = 'Leyendo factura…';
+
+    fileToBase64(file)
+      .then((pdfBase64) =>
+        authFetch('/.netlify/functions/parse-factura', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pdfBase64 }),
+        })
+      )
+      .then((res) => {
+        if (!res.ok) return res.json().then((d) => Promise.reject(new Error(d.error || 'Error al leer la factura')));
+        return res.json();
+      })
+      .then((datos) => {
+        if (datos.cliente) document.getElementById('f-cliente').value = datos.cliente;
+        if (datos.telefono) document.getElementById('f-telefono').value = datos.telefono;
+        if (datos.matricula) document.getElementById('f-matricula').value = datos.matricula;
+        if (datos.vehiculo) document.getElementById('f-vehiculo').value = datos.vehiculo;
+        if (datos.trabajo) document.getElementById('f-trabajo').value = datos.trabajo;
+        if (datos.fechaITV) document.getElementById('f-itv').value = datos.fechaITV;
+        if (datos.fechaRevision) document.getElementById('f-revision').value = datos.fechaRevision;
+
+        estadoEl.textContent = 'Factura leída. Revisa los datos antes de guardar.';
+
+        if (datos.avisos && datos.avisos.length) {
+          avisosEl.textContent = datos.avisos.join(' · ');
+          avisosEl.hidden = false;
+        }
+      })
+      .catch((err) => {
+        estadoEl.textContent = err.message || 'No se ha podido leer la factura.';
+      });
+  });
+
   function entrar(password) {
     sessionStorage.setItem('adminPassword', password);
     authFetch('/.netlify/functions/list-recordatorios')

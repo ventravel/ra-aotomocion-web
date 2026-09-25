@@ -33,6 +33,14 @@
 
       <div id="panel" hidden>
         <h1 class="h2" id="form-titulo">Añadir vehículo</h1>
+
+        <label class="campo-nombre">
+          Rellenar leyendo una factura (PDF)
+          <input type="file" id="f-factura" accept="application/pdf">
+        </label>
+        <p id="factura-estado" class="section-sub" hidden></p>
+        <p id="factura-avisos" class="firma-error" hidden></p>
+
         <form id="form-recordatorio">
           <input type="hidden" id="f-id">
           <label class="campo-nombre">
