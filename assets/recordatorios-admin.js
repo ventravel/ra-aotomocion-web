@@ -27,6 +27,52 @@
     });
   }
 
+  // Dictado por voz para rellenar campos (matrícula, cliente, vehículo, trabajo).
+  const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognitionCtor) {
+    document.getElementById('voz-no-disponible').hidden = false;
+    document.querySelectorAll('.btn-voz').forEach((btn) => (btn.disabled = true));
+  } else {
+    document.querySelectorAll('.btn-voz').forEach((btn) => {
+      const input = document.getElementById(btn.dataset.target);
+      let escuchando = false;
+
+      btn.addEventListener('click', () => {
+        if (escuchando) return;
+
+        const recognition = new SpeechRecognitionCtor();
+        recognition.lang = 'es-ES';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        escuchando = true;
+        btn.classList.add('escuchando');
+        btn.textContent = '…';
+
+        recognition.addEventListener('result', (evt) => {
+          const texto = evt.results[0][0].transcript;
+          input.value = texto.charAt(0).toUpperCase() + texto.slice(1);
+        });
+
+        recognition.addEventListener('error', () => {
+          btn.textContent = '⚠️';
+          setTimeout(() => {
+            btn.textContent = '🎤';
+          }, 1500);
+        });
+
+        recognition.addEventListener('end', () => {
+          escuchando = false;
+          btn.classList.remove('escuchando');
+          btn.textContent = '🎤';
+        });
+
+        recognition.start();
+      });
+    });
+  }
+
   document.getElementById('f-factura').addEventListener('change', (evt) => {
     const file = evt.target.files[0];
     if (!file) return;

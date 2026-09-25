@@ -33,3 +33,8 @@
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     Content-Security-Policy = "frame-ancestors 'self'"
+
+[[headers]]
+  for = "/recordatorios-admin.html"
+  [headers.values]
+    Permissions-Policy = "camera=(), microphone=(self), geolocation=()"

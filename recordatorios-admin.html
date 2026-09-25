@@ -41,11 +41,16 @@
         <p id="factura-estado" class="section-sub" hidden></p>
         <p id="factura-avisos" class="firma-error" hidden></p>
 
+        <p id="voz-no-disponible" class="firma-error" hidden>El reconocimiento de voz no está disponible en este navegador (funciona en Chrome; en iPhone/Safari no es fiable).</p>
+
         <form id="form-recordatorio">
           <input type="hidden" id="f-id">
           <label class="campo-nombre">
             Nombre del cliente
-            <input type="text" id="f-cliente" required>
+            <span class="campo-con-voz">
+              <input type="text" id="f-cliente" required>
+              <button type="button" class="btn-voz" data-target="f-cliente" title="Dictar">🎤</button>
+            </span>
           </label>
           <label class="campo-nombre">
             Teléfono (para el enlace de WhatsApp)
@@ -53,15 +58,24 @@
           </label>
           <label class="campo-nombre">
             Matrícula
-            <input type="text" id="f-matricula" required>
+            <span class="campo-con-voz">
+              <input type="text" id="f-matricula" required>
+              <button type="button" class="btn-voz" data-target="f-matricula" title="Dictar">🎤</button>
+            </span>
           </label>
           <label class="campo-nombre">
             Vehículo (marca y modelo)
-            <input type="text" id="f-vehiculo">
+            <span class="campo-con-voz">
+              <input type="text" id="f-vehiculo">
+              <button type="button" class="btn-voz" data-target="f-vehiculo" title="Dictar">🎤</button>
+            </span>
           </label>
           <label class="campo-nombre">
             Qué se hizo
-            <input type="text" id="f-trabajo" placeholder="Ej: cambio de aceite y filtros">
+            <span class="campo-con-voz">
+              <input type="text" id="f-trabajo" placeholder="Ej: cambio de aceite y filtros">
+              <button type="button" class="btn-voz" data-target="f-trabajo" title="Dictar">🎤</button>
+            </span>
           </label>
           <label class="campo-nombre">
             Próxima ITV
