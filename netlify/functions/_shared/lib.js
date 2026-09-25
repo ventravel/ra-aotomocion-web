@@ -89,6 +89,16 @@ async function checkAdmin(event) {
   return { ok: false, reason: 'wrong-password' };
 }
 
+// Compatibilidad con recordatorios guardados antes de tener una lista de avisos
+// (cuando solo había fechaITV/fechaRevision fijas). Si ya tiene "avisos", se deja igual.
+function normalizarAvisos(r) {
+  if (Array.isArray(r.avisos)) return r.avisos;
+  const avisos = [];
+  if (r.fechaITV) avisos.push({ tipo: 'ITV', fecha: r.fechaITV });
+  if (r.fechaRevision) avisos.push({ tipo: r.trabajo || 'Revisión', fecha: r.fechaRevision });
+  return avisos;
+}
+
 function json(statusCode, body) {
   return {
     statusCode,
@@ -117,4 +127,5 @@ module.exports = {
   requireAdmin,
   json,
   madridDateParts,
+  normalizarAvisos,
 };

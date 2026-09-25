@@ -15,10 +15,14 @@ exports.handler = async (event) => {
     return json(400, { error: 'Cuerpo inválido' });
   }
 
-  const { id, cliente, telefono, matricula, vehiculo, trabajo, fechaITV, fechaRevision } = payload;
+  const { id, cliente, telefono, matricula, vehiculo, trabajo, avisos } = payload;
   if (!cliente || !matricula) {
     return json(400, { error: 'Faltan campos obligatorios (cliente, matrícula)' });
   }
+
+  const avisosLimpios = (Array.isArray(avisos) ? avisos : [])
+    .filter((a) => a && a.tipo && a.fecha)
+    .map((a) => ({ tipo: a.tipo, fecha: a.fecha }));
 
   const store = recordatoriosStore();
   const recordatorio = {
@@ -28,8 +32,7 @@ exports.handler = async (event) => {
     matricula,
     vehiculo: vehiculo || '',
     trabajo: trabajo || '',
-    fechaITV: fechaITV || '',
-    fechaRevision: fechaRevision || '',
+    avisos: avisosLimpios,
   };
 
   await store.setJSON(recordatorio.id, recordatorio);

@@ -1,4 +1,5 @@
-const { recordatoriosStore, madridDateParts } = require('./_shared/lib');
+const { recordatoriosStore, madridDateParts, normalizarAvisos } = require('./_shared/lib');
+const { CATALOGO_KEY } = require('./_shared/catalogo');
 
 const DIAS_AVISO = 15;
 const DESTINATARIO = 'raautomocion@hotmail.com';
@@ -35,18 +36,19 @@ function filaHtml(item) {
 exports.handler = async () => {
   const store = recordatoriosStore();
   const { blobs } = await store.list();
-  const recordatorios = await Promise.all(blobs.map((b) => store.get(b.key, { type: 'json' })));
+  const recordatorios = await Promise.all(
+    blobs.filter((b) => b.key !== CATALOGO_KEY).map((b) => store.get(b.key, { type: 'json' }))
+  );
 
   const hoy = madridDateParts(new Date()).fecha;
   const limite = sumarDias(hoy, DIAS_AVISO);
 
   const pendientes = [];
   for (const r of recordatorios) {
-    if (r.fechaITV && r.fechaITV <= limite) {
-      pendientes.push({ ...r, tipo: 'ITV', fecha: r.fechaITV, dias: diasRestantes(hoy, r.fechaITV) });
-    }
-    if (r.fechaRevision && r.fechaRevision <= limite) {
-      pendientes.push({ ...r, tipo: 'Revisión', fecha: r.fechaRevision, dias: diasRestantes(hoy, r.fechaRevision) });
+    for (const aviso of normalizarAvisos(r)) {
+      if (aviso.fecha && aviso.fecha <= limite) {
+        pendientes.push({ ...r, tipo: aviso.tipo, fecha: aviso.fecha, dias: diasRestantes(hoy, aviso.fecha) });
+      }
     }
   }
 
@@ -63,7 +65,7 @@ exports.handler = async () => {
   }
 
   const html = `
-    <h2>Recordatorios ITV / Revisión — próximos ${DIAS_AVISO} días</h2>
+    <h2>Recordatorios de taller — próximos ${DIAS_AVISO} días</h2>
     <table style="border-collapse:collapse;width:100%;font-family:sans-serif;font-size:14px">
       <thead>
         <tr style="text-align:left;background:#f5f5f5">
@@ -90,7 +92,7 @@ exports.handler = async () => {
     body: JSON.stringify({
       from: REMITENTE,
       to: [DESTINATARIO],
-      subject: `${pendientes.length} recordatorio(s) de ITV/Revisión próximos a vencer`,
+      subject: `${pendientes.length} recordatorio(s) de taller próximos a vencer`,
       html,
     }),
   });

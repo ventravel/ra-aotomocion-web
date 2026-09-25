@@ -1,5 +1,6 @@
 const pdfParse = require('pdf-parse');
-const { requireAdmin, json } = require('./_shared/lib');
+const { recordatoriosStore, requireAdmin, json } = require('./_shared/lib');
+const { getCatalogo } = require('./_shared/catalogo');
 
 // Correspondencia aproximada matrícula (formato 0000-XXX desde sept. 2000) -> año.
 // Fuente: tablas públicas de fechamatriculacion.es (asignación correlativa de la DGT).
@@ -115,17 +116,25 @@ exports.handler = async (event) => {
   }
   if (!telefono) avisos.push('No se ha encontrado un teléfono automáticamente.');
 
-  // Detección de conceptos y cálculo de fechas
+  // Detección de conceptos y cálculo de fechas, usando el catálogo de tipos
+  // de trabajo que el taller gestiona desde el panel (palabras clave + intervalo).
   const textoUpper = texto.toUpperCase();
-  let fechaRevision = '';
-  let fechaITV = '';
   const trabajos = [];
+  const avisosDetectados = [];
 
-  if (textoUpper.includes('ACEITE')) {
-    trabajos.push('Cambio de aceite');
-    if (fechaFactura) {
-      fechaRevision = sumarDias(fechaFactura, 365);
-      avisos.push('Detectado "aceite" → próxima revisión = fecha factura + 365 días.');
+  const catalogo = await getCatalogo(recordatoriosStore());
+  for (const item of catalogo) {
+    const detectado = (item.palabrasClave || []).some((palabra) => textoUpper.includes(palabra.toUpperCase()));
+    if (!detectado) continue;
+
+    trabajos.push(item.nombre);
+    if (fechaFactura && item.intervaloMeses) {
+      const fecha = sumarDias(fechaFactura, Math.round(item.intervaloMeses * 30.4));
+      avisosDetectados.push({ tipo: item.nombre, fecha });
+      avisos.push(`Detectado "${item.nombre}" → próximo aviso en ${item.intervaloMeses} mes(es), el ${fecha}.`);
+    } else if (fechaFactura) {
+      avisosDetectados.push({ tipo: item.nombre, fecha: '' });
+      avisos.push(`Detectado "${item.nombre}" → sin intervalo configurado en el catálogo, añade la fecha a mano.`);
     }
   }
 
@@ -133,7 +142,8 @@ exports.handler = async (event) => {
     trabajos.push('ITV');
     if (fechaFactura && matricula) {
       const { anios, nota } = estimarIntervaloITV(matricula);
-      fechaITV = sumarDias(fechaFactura, anios * 365);
+      const fechaITV = sumarDias(fechaFactura, anios * 365);
+      avisosDetectados.push({ tipo: 'ITV', fecha: fechaITV });
       avisos.push(`Detectado "ITV" → ${nota}`);
     }
   }
@@ -144,8 +154,7 @@ exports.handler = async (event) => {
     matricula,
     vehiculo,
     trabajo: trabajos.join(' + '),
-    fechaITV,
-    fechaRevision,
+    avisosDetectados,
     avisos,
   });
 };

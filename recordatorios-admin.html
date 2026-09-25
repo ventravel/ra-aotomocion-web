@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
 <link rel="stylesheet" href="/assets/style.css?v=9">
-<link rel="stylesheet" href="/assets/admin.css?v=1">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
 </head>
 <body>
 <header class="site">
@@ -77,20 +77,48 @@
               <button type="button" class="btn-voz" data-target="f-trabajo" title="Dictar">🎤</button>
             </span>
           </label>
-          <label class="campo-nombre">
-            Próxima ITV
-            <input type="date" id="f-itv">
-          </label>
-          <label class="campo-nombre">
-            Próxima revisión
-            <input type="date" id="f-revision">
-          </label>
+
+          <p class="campo-nombre" style="margin-bottom:0;">Avisos de este vehículo</p>
+          <datalist id="tipos-catalogo"></datalist>
+          <div id="avisos-lista"></div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-aviso" style="margin-top:8px;">+ Añadir aviso</button>
+
           <p id="recordatorio-error" class="firma-error" hidden></p>
-          <button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+          <button type="submit" class="btn btn-primary" id="btn-guardar" style="margin-top:18px;">Guardar</button>
           <button type="button" class="btn btn-secondary" id="btn-cancelar-edicion" hidden>Cancelar edición</button>
         </form>
 
-        <h2 class="h2">Vehículos</h2>
+        <h2 class="h2">Catálogo de tipos de trabajo</h2>
+        <p class="section-sub">Palabras que el lector de facturas busca, y cada cuántos meses avisar. Deja el intervalo en blanco si no quieres aviso automático para ese trabajo.</p>
+        <table class="tabla-ordenes">
+          <thead>
+            <tr>
+              <th>Trabajo</th>
+              <th>Palabras clave</th>
+              <th>Cada (meses)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tabla-catalogo-body"></tbody>
+        </table>
+        <form id="form-catalogo" class="form-inline" style="margin-top:14px;">
+          <label class="campo-nombre">
+            Nombre
+            <input type="text" id="c-nombre" placeholder="Ej: Correa de accesorios" required>
+          </label>
+          <label class="campo-nombre">
+            Palabras clave (separadas por coma)
+            <input type="text" id="c-palabras" placeholder="Ej: CORREA ACCESORIOS" required>
+          </label>
+          <label class="campo-nombre">
+            Cada (meses)
+            <input type="number" id="c-meses" placeholder="Opcional" min="1">
+          </label>
+          <button type="submit" class="btn btn-secondary btn-sm">Añadir</button>
+        </form>
+        <p id="catalogo-error" class="firma-error" hidden></p>
+
+        <h2 class="h2" style="margin-top:40px;">Vehículos</h2>
         <p class="section-sub">Los que vencen en 15 días o menos aparecen resaltados arriba.</p>
         <button type="button" class="btn btn-secondary btn-sm" id="btn-refrescar">Actualizar lista</button>
         <table class="tabla-ordenes">
@@ -99,8 +127,7 @@
               <th>Cliente</th>
               <th>Matrícula / Vehículo</th>
               <th>Trabajo</th>
-              <th>ITV</th>
-              <th>Revisión</th>
+              <th>Próximos avisos</th>
               <th></th>
             </tr>
           </thead>
@@ -112,6 +139,6 @@
   </section>
 </main>
 
-<script src="/assets/recordatorios-admin.js?v=1"></script>
+<script src="/assets/recordatorios-admin.js?v=2"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
-const { recordatoriosStore, requireAdmin, json, madridDateParts } = require('./_shared/lib');
+const { recordatoriosStore, requireAdmin, json, madridDateParts, normalizarAvisos } = require('./_shared/lib');
+const { CATALOGO_KEY } = require('./_shared/catalogo');
 
 function proximaFecha(r) {
-  const fechas = [r.fechaITV, r.fechaRevision].filter(Boolean);
+  const fechas = normalizarAvisos(r).map((a) => a.fecha).filter(Boolean);
   if (fechas.length === 0) return null;
   return fechas.sort()[0];
 }
@@ -15,7 +16,9 @@ exports.handler = async (event) => {
 
   const store = recordatoriosStore();
   const { blobs } = await store.list();
-  const recordatorios = await Promise.all(blobs.map((b) => store.get(b.key, { type: 'json' })));
+  const recordatorios = await Promise.all(
+    blobs.filter((b) => b.key !== CATALOGO_KEY).map((b) => store.get(b.key, { type: 'json' }))
+  );
 
   const hoy = madridDateParts(new Date()).fecha;
   recordatorios.sort((a, b) => {
