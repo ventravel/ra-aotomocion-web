@@ -1,12 +1,11 @@
-const { rrhhStore, checkAdmin, json, madridDateParts } = require('./_shared/lib');
+const { rrhhStore, requireAdmin, json, madridDateParts } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {
     return json(405, { error: 'Método no permitido' });
   }
-  if (!checkAdmin(event)) {
-    return json(401, { error: 'No autorizado' });
-  }
+  const authError = await requireAdmin(event);
+  if (authError) return authError;
 
   const params = event.queryStringParameters || {};
   const month = params.month || madridDateParts(new Date()).fecha.slice(0, 7);

@@ -1,5 +1,5 @@
 const pdfParse = require('pdf-parse');
-const { checkAdmin, json } = require('./_shared/lib');
+const { requireAdmin, json } = require('./_shared/lib');
 
 // Correspondencia aproximada matrícula (formato 0000-XXX desde sept. 2000) -> año.
 // Fuente: tablas públicas de fechamatriculacion.es (asignación correlativa de la DGT).
@@ -40,9 +40,8 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Método no permitido' });
   }
-  if (!checkAdmin(event)) {
-    return json(401, { error: 'No autorizado' });
-  }
+  const authError = await requireAdmin(event);
+  if (authError) return authError;
 
   let payload;
   try {

@@ -1,4 +1,4 @@
-const { rrhhStore, checkAdmin, json } = require('./_shared/lib');
+const { rrhhStore, requireAdmin, json } = require('./_shared/lib');
 
 async function getList(store) {
   const list = await store.get('empleados', { type: 'json' });
@@ -14,9 +14,8 @@ exports.handler = async (event) => {
   }
 
   if (event.httpMethod === 'POST') {
-    if (!checkAdmin(event)) {
-      return json(401, { error: 'No autorizado' });
-    }
+    const authError = await requireAdmin(event);
+    if (authError) return authError;
 
     let payload;
     try {

@@ -1,13 +1,12 @@
 const { randomUUID } = require('crypto');
-const { metaStore, fileStore, checkAdmin, json } = require('./_shared/lib');
+const { metaStore, fileStore, requireAdmin, json } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Método no permitido' });
   }
-  if (!checkAdmin(event)) {
-    return json(401, { error: 'No autorizado' });
-  }
+  const authError = await requireAdmin(event);
+  if (authError) return authError;
 
   let payload;
   try {

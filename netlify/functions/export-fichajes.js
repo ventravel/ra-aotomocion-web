@@ -1,4 +1,4 @@
-const { rrhhStore, checkAdmin, madridDateParts } = require('./_shared/lib');
+const { rrhhStore, requireAdmin, madridDateParts } = require('./_shared/lib');
 
 function csvEscape(value) {
   return `"${String(value).replace(/"/g, '""')}"`;
@@ -8,9 +8,8 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {
     return { statusCode: 405, body: 'Método no permitido' };
   }
-  if (!checkAdmin(event)) {
-    return { statusCode: 401, body: 'No autorizado' };
-  }
+  const authError = await requireAdmin(event);
+  if (authError) return { statusCode: authError.statusCode, body: JSON.parse(authError.body).error };
 
   const params = event.queryStringParameters || {};
   const month = params.month || madridDateParts(new Date()).fecha.slice(0, 7);

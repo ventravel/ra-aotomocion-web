@@ -1,12 +1,11 @@
-const { recordatoriosStore, checkAdmin, json } = require('./_shared/lib');
+const { recordatoriosStore, requireAdmin, json } = require('./_shared/lib');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { error: 'Método no permitido' });
   }
-  if (!checkAdmin(event)) {
-    return json(401, { error: 'No autorizado' });
-  }
+  const authError = await requireAdmin(event);
+  if (authError) return authError;
 
   let payload;
   try {

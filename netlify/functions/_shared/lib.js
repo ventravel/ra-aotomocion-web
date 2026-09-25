@@ -42,10 +42,51 @@ function madridDateParts(date) {
   };
 }
 
-function checkAdmin(event) {
+const MAX_INTENTOS = 5;
+const BLOQUEO_MINUTOS = 15;
+
+function authStore() {
+  return getStore(blobConfig('admin-auth'));
+}
+
+function clientIp(event) {
+  return (
+    event.headers['x-nf-client-connection-ip'] ||
+    event.headers['client-ip'] ||
+    (event.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
+    'unknown'
+  );
+}
+
+// Devuelve { ok: true } si la contraseña es correcta, o
+// { ok: false, reason: 'blocked' | 'wrong-password', minutosRestantes? }.
+// Bloquea una IP durante BLOQUEO_MINUTOS tras MAX_INTENTOS fallos seguidos.
+async function checkAdmin(event) {
   const provided = event.headers['x-admin-password'] || '';
   const expected = process.env.ADMIN_PASSWORD || '';
-  return expected.length > 0 && provided === expected;
+  if (!expected) return { ok: false, reason: 'wrong-password' };
+
+  const store = authStore();
+  const key = `intentos-${clientIp(event)}`;
+  const estado = (await store.get(key, { type: 'json' })) || { fallos: 0, bloqueadoHasta: 0 };
+  const ahora = Date.now();
+
+  if (estado.bloqueadoHasta && ahora < estado.bloqueadoHasta) {
+    return { ok: false, reason: 'blocked', minutosRestantes: Math.ceil((estado.bloqueadoHasta - ahora) / 60000) };
+  }
+
+  if (provided === expected) {
+    if (estado.fallos > 0) await store.delete(key);
+    return { ok: true };
+  }
+
+  estado.fallos = (estado.fallos || 0) + 1;
+  if (estado.fallos >= MAX_INTENTOS) {
+    estado.bloqueadoHasta = ahora + BLOQUEO_MINUTOS * 60 * 1000;
+    estado.fallos = 0;
+  }
+  await store.setJSON(key, estado);
+  return { ok: false, reason: 'wrong-password' };
 }
 
 function json(statusCode, body) {
@@ -56,4 +97,24 @@ function json(statusCode, body) {
   };
 }
 
-module.exports = { metaStore, fileStore, rrhhStore, recordatoriosStore, checkAdmin, json, madridDateParts };
+// Comprueba la contraseña de admin y, si falla, devuelve directamente la
+// respuesta HTTP que hay que retornar (401 o 429). Si es null, está autorizado.
+async function requireAdmin(event) {
+  const auth = await checkAdmin(event);
+  if (auth.ok) return null;
+  if (auth.reason === 'blocked') {
+    return json(429, { error: `Demasiados intentos. Inténtalo de nuevo en ${auth.minutosRestantes} minuto(s).` });
+  }
+  return json(401, { error: 'No autorizado' });
+}
+
+module.exports = {
+  metaStore,
+  fileStore,
+  rrhhStore,
+  recordatoriosStore,
+  checkAdmin,
+  requireAdmin,
+  json,
+  madridDateParts,
+};
