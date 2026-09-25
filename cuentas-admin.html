@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuentas | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/cuentas.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Cuentas</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2">Cuentas</h1>
+
+        <div class="periodo-selector">
+          <button type="button" class="btn btn-secondary btn-sm periodo-btn activo" data-periodo="mes">Este mes</button>
+          <button type="button" class="btn btn-secondary btn-sm periodo-btn" data-periodo="trimestre">Este trimestre</button>
+          <button type="button" class="btn btn-secondary btn-sm periodo-btn" data-periodo="todo">Todo</button>
+        </div>
+
+        <div class="resumen-grid" id="resumen-grid"></div>
+
+        <div class="nuevo-mov-botones">
+          <button type="button" class="btn btn-whatsapp" id="btn-nuevo-ingreso">+ Nuevo ingreso (factura a cliente)</button>
+          <button type="button" class="btn btn-secondary" id="btn-nuevo-gasto">+ Nuevo gasto (factura de proveedor)</button>
+        </div>
+
+        <div id="form-mov-wrap" hidden>
+          <h2 class="h2" id="form-mov-titulo" style="font-size:20px; margin-top:24px;">Nuevo movimiento</h2>
+
+          <label class="campo-nombre">
+            Foto o PDF de la factura
+            <input type="file" id="mv-archivo" accept="application/pdf,image/*" capture="environment">
+          </label>
+          <p id="mv-estado" class="section-sub" hidden></p>
+          <p id="mv-avisos" class="firma-error" hidden></p>
+
+          <form id="form-movimiento">
+            <label class="campo-nombre">
+              Fecha
+              <input type="date" id="mv-fecha" required>
+            </label>
+            <label class="campo-nombre">
+              <span id="mv-contraparte-label">Cliente</span>
+              <input type="text" id="mv-contraparte">
+            </label>
+            <label class="campo-nombre">
+              Base imponible (€)
+              <input type="number" step="0.01" id="mv-base" required>
+            </label>
+            <label class="campo-nombre">
+              IVA (€)
+              <input type="number" step="0.01" id="mv-iva" required>
+            </label>
+            <label class="campo-nombre">
+              Total (€)
+              <input type="number" step="0.01" id="mv-total" required>
+            </label>
+
+            <div id="mv-ingreso-campos" hidden>
+              <label class="campo-nombre">
+                Mano de obra (€, sin IVA)
+                <input type="number" step="0.01" id="mv-manoobra">
+              </label>
+              <label class="campo-nombre">
+                Recambios (€, sin IVA)
+                <input type="number" step="0.01" id="mv-recambios-ingreso">
+              </label>
+            </div>
+
+            <div id="mv-gasto-campos" hidden>
+              <label class="campo-nombre">
+                Categoría
+                <select id="mv-categoria">
+                  <option>Recambios</option>
+                  <option>Alquiler</option>
+                  <option>Suministros (agua/luz)</option>
+                  <option>Gestoría</option>
+                  <option>Combustible</option>
+                  <option>Otros</option>
+                </select>
+              </label>
+            </div>
+
+            <p id="mov-error" class="firma-error" hidden></p>
+            <button type="submit" class="btn btn-primary" style="margin-top:18px;">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancelar-mov">Cancelar</button>
+          </form>
+        </div>
+
+        <h2 class="h2" style="margin-top:36px;">Movimientos</h2>
+        <div id="lista-movimientos"></div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/cuentas-admin.js?v=1"></script>
+</body>
+</html>

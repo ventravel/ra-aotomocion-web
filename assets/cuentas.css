@@ -1,0 +1,32 @@
+.periodo-selector { display: flex; gap: 8px; margin: 16px 0 20px; flex-wrap: wrap; }
+.periodo-btn.activo { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+.resumen-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;
+  margin-bottom: 24px;
+}
+.resumen-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px;
+}
+.resumen-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; margin-bottom: 6px; }
+.resumen-card .valor { font-size: 22px; font-weight: 800; color: var(--anthracite); }
+.resumen-card.destacado { background: linear-gradient(160deg, #eef4fd, #e4edfb); border-color: var(--blue-bright); }
+.resumen-card.destacado .valor { color: var(--blue); }
+.resumen-card.positivo .valor { color: #175a37; }
+.resumen-card.negativo .valor { color: #b3261e; }
+
+.nuevo-mov-botones { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; }
+
+.mov-item {
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap;
+}
+.mov-item .tipo-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; margin-right: 8px;
+}
+.mov-item .tipo-badge.ingreso { background: #eafaf1; color: #175a37; }
+.mov-item .tipo-badge.gasto { background: #fdecea; color: #b3261e; }
+.mov-item .datos { font-size: 14px; }
+.mov-item .datos b { color: var(--anthracite); }
+.mov-item .desglose { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.mov-item .acciones { display: flex; gap: 10px; align-items: center; }

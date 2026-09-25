@@ -28,6 +28,14 @@ function citasStore() {
   return getStore(blobConfig('citas'));
 }
 
+function cuentasStore() {
+  return getStore(blobConfig('cuentas-meta'));
+}
+
+function cuentasFileStore() {
+  return getStore(blobConfig('cuentas-files'));
+}
+
 function madridDateParts(date) {
   const parts = new Intl.DateTimeFormat('sv-SE', {
     timeZone: 'Europe/Madrid',
@@ -128,6 +136,8 @@ module.exports = {
   rrhhStore,
   recordatoriosStore,
   citasStore,
+  cuentasStore,
+  cuentasFileStore,
   checkAdmin,
   requireAdmin,
   json,
