@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citas | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/citas.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Citas</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2">Citas</h1>
+        <p class="section-sub">Máximo 4 al día, 5 si el motivo es revisión o filtros. Todas a las 9:00.</p>
+
+        <h2 class="h2" style="font-size:18px; margin-top:24px;">Bloquear un día</h2>
+        <form id="form-bloqueo" class="form-inline">
+          <label class="campo-nombre">
+            Fecha
+            <input type="date" id="b-fecha" required>
+          </label>
+          <button type="submit" class="btn btn-secondary btn-sm">Bloquear</button>
+        </form>
+        <div id="lista-bloqueos" style="margin-top:10px;"></div>
+
+        <h2 class="h2" style="margin-top:32px;">Próximas citas</h2>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-refrescar">Actualizar</button>
+        <div id="citas-por-dia" style="margin-top:16px;"></div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/citas-admin.js?v=1"></script>
+</body>
+</html>

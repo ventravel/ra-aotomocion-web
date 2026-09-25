@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedir cita | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/citas.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block firmar-wrap">
+    <div class="wrap wrap-narrow">
+
+      <div id="paso-calendario">
+        <h1 class="h2">Pedir cita</h1>
+        <p class="section-sub">Elige un día. Todas las citas son a las <b>9:00 de la mañana</b>.</p>
+        <div id="dias-lista" class="dias-lista">
+          <p>Cargando disponibilidad…</p>
+        </div>
+      </div>
+
+      <div id="paso-form" hidden>
+        <h1 class="h2">Tus datos</h1>
+        <p class="section-sub" id="fecha-elegida-texto"></p>
+
+        <form id="form-cita">
+          <label class="campo-nombre">
+            Nombre
+            <input type="text" id="c-cliente" required>
+          </label>
+          <label class="campo-nombre">
+            Teléfono
+            <input type="tel" id="c-telefono" placeholder="624482814" required>
+          </label>
+          <label class="campo-nombre">
+            Matrícula
+            <input type="text" id="c-matricula" required>
+          </label>
+          <label class="campo-nombre">
+            ¿Qué le pasa al vehículo?
+            <textarea id="c-motivo" rows="3" placeholder="Ej: revisión y cambio de filtros"></textarea>
+          </label>
+          <p id="cita-error" class="firma-error" hidden></p>
+          <button type="submit" class="btn btn-primary btn-block" id="btn-reservar">Pedir esta cita</button>
+          <button type="button" class="btn btn-secondary btn-block" id="btn-volver-calendario" style="margin-top:10px;">Elegir otro día</button>
+        </form>
+      </div>
+
+      <div id="paso-confirmacion" hidden>
+        <h1 class="h2">Solicitud enviada</h1>
+        <p class="section-sub" id="confirmacion-texto"></p>
+        <p class="section-sub">Te confirmaremos por WhatsApp o llamada. Preséntate a las 9:00 de la mañana el día de tu cita.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fbottom">
+      <div>© 2026 RA Automoción S.L. · CIF B88868468</div>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/citas.js?v=1"></script>
+</body>
+</html>

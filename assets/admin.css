@@ -27,7 +27,8 @@
   color: var(--anthracite);
   margin: 16px 0 6px;
 }
-.campo-nombre input {
+.campo-nombre input,
+.campo-nombre textarea {
   display: block;
   width: 100%;
   margin-top: 6px;
@@ -36,6 +37,7 @@
   border-radius: 8px;
   font-size: 15px;
   font-family: inherit;
+  resize: vertical;
 }
 
 .campo-checkbox {

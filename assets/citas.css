@@ -1,0 +1,47 @@
+.dias-lista {
+  display: grid; gap: 10px; margin-top: 18px;
+}
+.dia-card {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px;
+  background: #fff; cursor: pointer; text-align: left; width: 100%;
+  font-family: inherit; font-size: 15px; color: var(--anthracite);
+}
+.dia-card:hover { border-color: var(--blue-bright); }
+.dia-card .dia-fecha { font-weight: 700; }
+.dia-card .dia-semana { color: var(--muted); font-size: 13px; margin-left: 6px; }
+.dia-card .dia-estado {
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.dia-card.estado-libre .dia-estado { background: #eafaf1; color: #175a37; }
+.dia-card.estado-solo-rapidos .dia-estado { background: #fff7e0; color: #8a6100; }
+.dia-card.estado-completo,
+.dia-card.estado-cerrado {
+  cursor: not-allowed; opacity: 0.55;
+}
+.dia-card.estado-completo .dia-estado,
+.dia-card.estado-cerrado .dia-estado { background: #fdecea; color: #b3261e; }
+
+.admin-citas-dia {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px 18px; margin-bottom: 14px;
+}
+.admin-citas-dia .dia-cabecera {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+}
+.admin-citas-dia h3 { font-size: 16px; color: var(--anthracite); }
+.admin-cita-item {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-top: 1px solid var(--line);
+}
+.admin-cita-item:first-of-type { border-top: none; }
+.admin-cita-item .datos { font-size: 14px; }
+.admin-cita-item .datos b { color: var(--anthracite); }
+.admin-cita-item .motivo { color: var(--muted); font-size: 13px; }
+.estado-pill {
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; text-transform: uppercase;
+}
+.estado-pill.pendiente { background: #fff7e0; color: #8a6100; }
+.estado-pill.confirmada { background: #eafaf1; color: #175a37; }
+.estado-pill.cancelada { background: #f1f2f4; color: #5b6472; }

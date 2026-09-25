@@ -24,6 +24,10 @@ function recordatoriosStore() {
   return getStore(blobConfig('recordatorios'));
 }
 
+function citasStore() {
+  return getStore(blobConfig('citas'));
+}
+
 function madridDateParts(date) {
   const parts = new Intl.DateTimeFormat('sv-SE', {
     timeZone: 'Europe/Madrid',
@@ -123,6 +127,7 @@ module.exports = {
   fileStore,
   rrhhStore,
   recordatoriosStore,
+  citasStore,
   checkAdmin,
   requireAdmin,
   json,
