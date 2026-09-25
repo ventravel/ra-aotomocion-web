@@ -10,6 +10,8 @@
   let periodoActual = 'mes';
   let tipoActual = null;
   let archivoActual = null; // { base64, tipo (mime) } o null
+  let todosLosMovimientos = [];
+  let compGranularidad = 'trimestre';
 
   function getPassword() {
     return sessionStorage.getItem('adminPassword') || '';
@@ -51,6 +53,90 @@
     return { desde: desde.toISOString().slice(0, 10), hasta: hoyISO() };
   }
 
+  // --- Comparativa (círculos por mes/trimestre/año) ---
+
+  const NOMBRES_MES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+  function claveYEtiqueta(fechaISO, granularidad) {
+    const [anio, mes] = fechaISO.split('-');
+    const mesNum = Number(mes);
+    if (granularidad === 'anio') return { clave: anio, etiqueta: anio };
+    if (granularidad === 'trimestre') {
+      const t = Math.floor((mesNum - 1) / 3) + 1;
+      return { clave: `${anio}-T${t}`, etiqueta: `T${t} ${anio}` };
+    }
+    return { clave: `${anio}-${mes}`, etiqueta: `${NOMBRES_MES[mesNum - 1]} ${anio}` };
+  }
+
+  function agruparParaComparativa(movimientos, granularidad) {
+    const grupos = {};
+    movimientos
+      .filter((m) => m.tipo === 'ingreso')
+      .forEach((m) => {
+        const { clave, etiqueta } = claveYEtiqueta(m.fecha, granularidad);
+        if (!grupos[clave]) grupos[clave] = { clave, etiqueta, manoObra: 0, recambios: 0, iva: 0 };
+        grupos[clave].manoObra += m.manoObra || 0;
+        grupos[clave].recambios += m.recambios || 0;
+        grupos[clave].iva += m.iva || 0;
+      });
+    return Object.values(grupos)
+      .map((g) => ({ ...g, total: g.manoObra + g.recambios + g.iva }))
+      .sort((a, b) => a.clave.localeCompare(b.clave));
+  }
+
+  function renderComparativa() {
+    const cont = document.getElementById('comparativa-row');
+    const grupos = agruparParaComparativa(todosLosMovimientos, compGranularidad);
+
+    if (grupos.length === 0) {
+      cont.innerHTML = '<p class="comparativa-vacio">Todavía no hay ingresos suficientes para comparar.</p>';
+      return;
+    }
+
+    const MIN_PX = 64, MAX_PX = 150;
+    const maxTotal = Math.max(...grupos.map((g) => g.total), 0.01);
+
+    cont.innerHTML = '';
+    grupos.forEach((g) => {
+      const diametro = g.total <= 0 ? MIN_PX : Math.round(MIN_PX + (MAX_PX - MIN_PX) * (g.total / maxTotal));
+      const pManoObra = g.total > 0 ? (g.manoObra / g.total) * 100 : 0;
+      const pRecambios = g.total > 0 ? (g.recambios / g.total) * 100 : 0;
+
+      const card = document.createElement('div');
+      card.className = 'comp-card';
+
+      const circulo = document.createElement('div');
+      circulo.className = 'comp-circulo';
+      circulo.style.width = diametro + 'px';
+      circulo.style.height = diametro + 'px';
+      circulo.title = `Mano de obra ${fmt(g.manoObra)} · Recambios ${fmt(g.recambios)} · IVA ${fmt(g.iva)}`;
+      circulo.style.background = g.total > 0
+        ? `conic-gradient(var(--blue) 0% ${pManoObra}%, #f5a623 ${pManoObra}% ${pManoObra + pRecambios}%, #b7bdc9 ${pManoObra + pRecambios}% 100%)`
+        : '';
+
+      card.appendChild(circulo);
+      const label = document.createElement('div');
+      label.className = 'comp-label';
+      label.textContent = g.etiqueta;
+      card.appendChild(label);
+      const total = document.createElement('div');
+      total.className = 'comp-total';
+      total.textContent = fmt(g.total);
+      card.appendChild(total);
+
+      cont.appendChild(card);
+    });
+  }
+
+  document.querySelectorAll('.comp-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.comp-btn').forEach((b) => b.classList.remove('activo'));
+      btn.classList.add('activo');
+      compGranularidad = btn.dataset.comp;
+      renderComparativa();
+    });
+  });
+
   document.querySelectorAll('.periodo-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.periodo-btn').forEach((b) => b.classList.remove('activo'));
@@ -73,6 +159,8 @@
         loginBox.hidden = true;
         panel.hidden = false;
         render(datos);
+        todosLosMovimientos = datos.movimientos;
+        renderComparativa();
       })
       .catch(() => {
         sessionStorage.removeItem('adminPassword');
@@ -97,6 +185,14 @@
     authFetch('/.netlify/functions/list-movimientos?' + params.toString())
       .then((res) => res.json())
       .then(render);
+
+    // La comparativa siempre mira todos los movimientos, no el filtro de arriba.
+    authFetch('/.netlify/functions/list-movimientos')
+      .then((res) => res.json())
+      .then(({ movimientos }) => {
+        todosLosMovimientos = movimientos;
+        renderComparativa();
+      });
   }
 
   // --- Resumen ---

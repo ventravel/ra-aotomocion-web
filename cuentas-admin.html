@@ -43,6 +43,20 @@
 
         <div class="resumen-grid" id="resumen-grid"></div>
 
+        <h2 class="h2" style="font-size:20px; margin-top:32px;">Comparativa</h2>
+        <p class="section-sub">Cada círculo es un periodo: el tamaño según lo facturado, los colores según el reparto (mano de obra / recambios / IVA).</p>
+        <div class="comparativa-selector">
+          <button type="button" class="btn btn-secondary btn-sm comp-btn" data-comp="mes">Por mes</button>
+          <button type="button" class="btn btn-secondary btn-sm comp-btn activo" data-comp="trimestre">Por trimestre</button>
+          <button type="button" class="btn btn-secondary btn-sm comp-btn" data-comp="anio">Por año</button>
+        </div>
+        <div class="comparativa-leyenda">
+          <span><i style="background:var(--blue)"></i> Mano de obra</span>
+          <span><i style="background:#f5a623"></i> Recambios</span>
+          <span><i style="background:#b7bdc9"></i> IVA</span>
+        </div>
+        <div class="comparativa-row" id="comparativa-row"></div>
+
         <div class="nuevo-mov-botones">
           <button type="button" class="btn btn-whatsapp" id="btn-nuevo-ingreso">+ Nuevo ingreso (factura a cliente)</button>
           <button type="button" class="btn btn-secondary" id="btn-nuevo-gasto">+ Nuevo gasto (factura de proveedor)</button>
