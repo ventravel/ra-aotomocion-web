@@ -1,0 +1,94 @@
+.veh-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px; margin-bottom: 20px;
+}
+.veh-card .matricula {
+  display: inline-block; font-weight: 800; font-size: 20px; letter-spacing: 0.04em;
+  background: var(--anthracite); color: #fff; padding: 6px 14px; border-radius: 8px; margin-bottom: 8px;
+}
+.veh-card h1 { font-size: 20px; color: var(--anthracite); margin-bottom: 2px; }
+.veh-card .cliente { color: var(--muted); font-size: 14px; }
+
+.aviso-proximo {
+  background: linear-gradient(160deg, #eef4fd, #e4edfb); border: 1px solid var(--line);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.aviso-proximo .icono { font-size: 22px; }
+.aviso-proximo b { color: var(--anthracite); }
+.aviso-proximo p { margin: 0; font-size: 14px; color: var(--anthracite); }
+
+.timeline { list-style: none; }
+.timeline li {
+  position: relative; padding: 0 0 26px 26px; border-left: 2px solid var(--line);
+}
+.timeline li:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
+.timeline li::before {
+  content: ''; position: absolute; left: -7px; top: 2px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--blue); border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line);
+}
+.visita { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.visita .fecha { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue); margin-bottom: 4px; }
+.visita h3 { font-size: 16px; color: var(--anthracite); margin-bottom: 8px; }
+.visita .km { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+.visita .foto {
+  width: 100%; max-width: 320px; border-radius: 10px; border: 1px solid var(--line);
+  aspect-ratio: 4/3; object-fit: cover; background: var(--bg-alt);
+}
+
+.contacto-box { text-align: center; margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line); }
+.contacto-box p { color: var(--muted); margin-bottom: 14px; }
+
+/* Admin */
+.veh-resumen {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; margin: 18px 0 26px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.veh-resumen .matricula { font-weight: 800; font-size: 18px; color: var(--anthracite); }
+.veh-resumen .modelo { color: var(--muted); font-size: 14px; }
+
+.compartir-box {
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; margin-bottom: 30px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+}
+.compartir-box img.qr { width: 84px; height: 84px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--line); }
+.compartir-info { flex: 1; min-width: 220px; }
+.compartir-info .link {
+  display: block; font-size: 13px; color: var(--blue); background: #fff; border: 1px solid var(--line);
+  border-radius: 6px; padding: 8px 10px; margin: 8px 0; word-break: break-all;
+}
+
+.foto-upload-preview {
+  width: 140px; height: 105px; border-radius: 8px; border: 2px dashed var(--line);
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 12px; text-align: center; margin-top: 8px; overflow: hidden;
+}
+.foto-upload-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+.entrada-item {
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+}
+.entrada-item .fecha { font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.04em; }
+.entrada-item h4 { font-size: 15px; color: var(--anthracite); margin: 2px 0 2px; }
+.entrada-item .km { font-size: 13px; color: var(--muted); }
+.entrada-item .badge-foto { font-size: 12px; color: var(--ok); }
+
+.factura-box {
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px; margin-bottom: 22px;
+}
+.factura-box .campo-nombre { margin: 0; }
+.factura-rellenado {
+  background: #eafaf1; border: 1px solid #bfe8cf; color: #175a37;
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-top: 12px;
+}
+.divisor-o {
+  display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.06em; margin: 22px 0;
+}
+.divisor-o::before, .divisor-o::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.foto-paso-aparte {
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-top: 18px;
+}
+.foto-paso-aparte p.section-sub { font-size: 13px; margin-bottom: 10px; }

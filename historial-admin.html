@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historial de vehículos | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/historial.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/" aria-label="RA Automoción, inicio">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Historial de vehículos</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2">Historial de vehículos</h1>
+        <p class="section-sub">Busca una matrícula para ver o añadir una visita a su historial.</p>
+
+        <label class="campo-nombre" style="margin-top:18px;">
+          Buscar por matrícula
+          <input type="text" id="buscar-matricula" placeholder="Ej: 1234BCD">
+        </label>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-buscar" style="margin-top:10px;">Buscar</button>
+        <p id="buscar-error" class="firma-error" hidden></p>
+
+        <div id="vehiculo-nuevo-campos" hidden>
+          <p class="section-sub" style="margin-top:16px;">No hay ningún vehículo con esa matrícula. Rellena estos datos para crearlo.</p>
+          <label class="campo-nombre">
+            Vehículo (marca y modelo)
+            <input type="text" id="nuevo-vehiculo">
+          </label>
+          <label class="campo-nombre">
+            Cliente
+            <input type="text" id="nuevo-cliente">
+          </label>
+        </div>
+
+        <div id="veh-resumen-wrap" hidden>
+          <div class="veh-resumen">
+            <div>
+              <div class="matricula" id="veh-matricula"></div>
+              <div class="modelo" id="veh-modelo"></div>
+            </div>
+            <span class="btn btn-secondary btn-sm" style="pointer-events:none;" id="veh-num-visitas"></span>
+          </div>
+
+          <div class="compartir-box">
+            <img class="qr" id="veh-qr" alt="Código QR del historial">
+            <div class="compartir-info">
+              <b>Enlace para el cliente</b>
+              <span class="link" id="veh-link"></span>
+              <p class="section-sub" style="font-size:13px;">Compártelo por WhatsApp o imprime el QR en una etiqueta para el vehículo.</p>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-copiar-enlace">Copiar enlace</button>
+          </div>
+        </div>
+
+        <div id="form-visita-wrap" hidden>
+          <h2 class="h2" style="font-size:20px;">Añadir nueva visita</h2>
+
+          <div class="factura-box">
+            <label class="campo-nombre">
+              Rellenar leyendo la factura de CSS (PDF)
+              <input type="file" id="v-factura" accept="application/pdf">
+            </label>
+            <p id="factura-estado" class="section-sub" hidden></p>
+            <p id="factura-avisos" class="firma-error" hidden></p>
+          </div>
+
+          <div class="divisor-o">o rellena a mano</div>
+
+          <form id="form-visita">
+            <label class="campo-nombre">
+              Fecha
+              <input type="date" id="v-fecha" required>
+            </label>
+            <label class="campo-nombre">
+              Qué se hizo
+              <span class="campo-con-voz">
+                <input type="text" id="v-trabajo" required>
+                <button type="button" class="btn-voz" data-target="v-trabajo" title="Dictar">🎤</button>
+              </span>
+            </label>
+            <label class="campo-nombre">
+              Kilómetros
+              <input type="number" id="v-km">
+            </label>
+            <p id="visita-error" class="firma-error" hidden></p>
+            <button type="submit" class="btn btn-primary" style="margin-top:18px;">Guardar visita</button>
+          </form>
+
+          <div class="foto-paso-aparte">
+            <p class="section-sub">📷 La foto es opcional y la puedes añadir ahora o más tarde, desde el móvil, sin perder lo que ya se guardó.</p>
+            <label class="campo-nombre" style="margin:0;">
+              Foto del vehículo
+              <input type="file" id="v-foto" accept="image/*" capture="environment">
+            </label>
+            <div class="foto-upload-preview" id="v-foto-preview">Vista previa de la foto aquí</div>
+          </div>
+
+          <h2 class="h2" style="font-size:20px; margin-top:36px;">Visitas registradas</h2>
+          <div id="lista-visitas"></div>
+
+          <button type="button" class="link-borrar" id="btn-borrar-vehiculo" style="margin-top:20px;">Eliminar este vehículo del historial</button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/historial-admin.js?v=1"></script>
+</body>
+</html>

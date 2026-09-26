@@ -41,3 +41,8 @@
   for = "/recordatorios-admin.html"
   [headers.values]
     Permissions-Policy = "camera=(), microphone=(self), geolocation=()"
+
+[[headers]]
+  for = "/historial-admin.html"
+  [headers.values]
+    Permissions-Policy = "camera=(), microphone=(self), geolocation=()"

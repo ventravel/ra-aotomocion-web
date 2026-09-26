@@ -36,6 +36,14 @@ function cuentasFileStore() {
   return getStore(blobConfig('cuentas-files'));
 }
 
+function historialStore() {
+  return getStore(blobConfig('historial-meta'));
+}
+
+function historialFileStore() {
+  return getStore(blobConfig('historial-files'));
+}
+
 function madridDateParts(date) {
   const parts = new Intl.DateTimeFormat('sv-SE', {
     timeZone: 'Europe/Madrid',
@@ -138,6 +146,8 @@ module.exports = {
   citasStore,
   cuentasStore,
   cuentasFileStore,
+  historialStore,
+  historialFileStore,
   checkAdmin,
   requireAdmin,
   json,

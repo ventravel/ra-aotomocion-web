@@ -75,14 +75,14 @@ exports.handler = async (event) => {
 
   // Marca y modelo: misma línea que la matrícula, tras los km
   let vehiculo = '';
+  let km = null;
   if (matricula) {
     const lineaMatricula = lineas.find((l) => l.includes(matricula));
     if (lineaMatricula) {
-      const resto = lineaMatricula
-        .replace(matricula, '')
-        .replace(/^\s*\d+\s*/, '')
-        .trim();
-      vehiculo = resto;
+      const sinMatricula = lineaMatricula.replace(matricula, '');
+      const kmMatch = sinMatricula.match(/^\s*(\d+)\s*/);
+      if (kmMatch) km = Number(kmMatch[1]);
+      vehiculo = sinMatricula.replace(/^\s*\d+\s*/, '').trim();
     }
   }
 
@@ -153,6 +153,8 @@ exports.handler = async (event) => {
     telefono,
     matricula,
     vehiculo,
+    km,
+    fechaFactura,
     trabajo: trabajos.join(' + '),
     avisosDetectados,
     avisos,
