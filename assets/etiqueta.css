@@ -1,5 +1,8 @@
 body { background: var(--bg-alt); }
 
+/* .etiqueta y .btn fijan su propio "display", lo que pisa el [hidden] normal. */
+[hidden] { display: none !important; }
+
 .wrap-etiqueta-pagina {
   max-width: 640px; margin: 0 auto; padding: 30px 20px; text-align: center;
 }
