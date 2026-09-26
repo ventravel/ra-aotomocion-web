@@ -9,5 +9,6 @@ Disallow: /citas-admin.html
 Disallow: /cuentas-admin.html
 Disallow: /historial-admin.html
 Disallow: /historial.html
+Disallow: /etiqueta.html
 
 Sitemap: https://tallerraautomocion.es/sitemap.xml

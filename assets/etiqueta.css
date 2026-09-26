@@ -1,0 +1,45 @@
+body { background: var(--bg-alt); }
+
+.wrap-etiqueta-pagina {
+  max-width: 640px; margin: 0 auto; padding: 30px 20px; text-align: center;
+}
+#ayuda-texto { margin-bottom: 18px; }
+
+.etiqueta {
+  width: 50mm; height: 70mm;
+  background: #fff;
+  border: 1px solid #d7dbe3;
+  border-radius: 3mm;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.25);
+  padding: 3mm;
+  margin: 0 auto 30px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  font-family: system-ui, sans-serif;
+}
+.etiqueta .marca { display: flex; align-items: center; gap: 4px; margin-bottom: 2mm; }
+.etiqueta .marca img { width: 4mm; height: 4mm; }
+.etiqueta .marca span { font-size: 2.6mm; font-weight: 800; color: var(--anthracite); }
+.etiqueta .marca span em { font-style: normal; color: var(--blue); }
+
+.etiqueta .matricula {
+  font-weight: 800; font-size: 3.4mm; letter-spacing: 0.05em; color: var(--anthracite);
+  background: var(--bg-alt); border-radius: 1.5mm; padding: 0.8mm 2.5mm; margin-bottom: 2.5mm;
+}
+
+.etiqueta .qr { width: 32mm; height: 32mm; margin-bottom: 2.5mm; }
+
+.etiqueta .proximo { font-size: 2.3mm; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8mm; }
+.etiqueta .condicion { font-size: 2.9mm; font-weight: 700; color: var(--anthracite); line-height: 1.3; }
+.etiqueta .o { font-size: 2.2mm; color: var(--muted); margin: 0.3mm 0; font-style: italic; }
+
+.etiqueta .pie { margin-top: auto; font-size: 2mm; color: var(--muted); }
+
+@media print {
+  @page { size: 50mm 70mm; margin: 0; }
+  body { background: #fff; }
+  .pantalla-solo { display: none; }
+  .etiqueta {
+    box-shadow: none; border: none; border-radius: 0; margin: 0;
+    width: 50mm; height: 70mm; page-break-inside: avoid;
+  }
+}

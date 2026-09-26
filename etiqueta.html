@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etiqueta | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/etiqueta.css?v=1">
+</head>
+<body>
+
+<div class="pantalla-solo">
+  <header class="site">
+    <a class="brand" href="/" aria-label="RA Automoción, inicio">
+      <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+      <span class="word"><b>RA <em>Automoción</em></b><small>Taller mecánico</small></span>
+    </a>
+  </header>
+  <div class="wrap-etiqueta-pagina">
+    <p class="section-sub" id="ayuda-texto">Cargando…</p>
+    <button type="button" class="btn btn-primary" id="btn-imprimir" hidden>Imprimir etiqueta</button>
+  </div>
+</div>
+
+<div id="etiqueta" class="etiqueta" hidden>
+  <div class="marca">
+    <img src="/assets/icon-180.png?v=2" alt="">
+    <span>RA <em>Automoción</em></span>
+  </div>
+  <div class="matricula" id="et-matricula"></div>
+  <img class="qr" id="et-qr" alt="Código QR del historial">
+  <div id="et-proximo"></div>
+  <div class="pie">Escanea el QR para ver el historial</div>
+</div>
+
+<script src="/assets/etiqueta.js?v=1"></script>
+</body>
+</html>

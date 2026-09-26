@@ -158,6 +158,7 @@
     const link = `${location.origin}/historial.html?id=${registro.id}`;
     document.getElementById('veh-link').textContent = link;
     document.getElementById('veh-qr').src = `/.netlify/functions/historial-qr?id=${registro.id}&t=${Date.now()}`;
+    document.getElementById('btn-ver-etiqueta').href = `/etiqueta.html?id=${registro.id}`;
 
     renderVisitas(registro.visitas || []);
   }
