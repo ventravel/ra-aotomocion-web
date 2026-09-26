@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel | RA Automoción</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
+<link rel="stylesheet" href="/assets/style.css?v=9">
+<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/panel.css?v=1">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="/panel.html" aria-label="RA Automoción, panel">
+    <img src="/assets/icon-180.png?v=2" alt="" width="46" height="46">
+    <span class="word"><b>RA <em>Automoción</em></b><small>Panel</small></span>
+  </a>
+</header>
+
+<main id="contenido">
+  <section class="block">
+    <div class="wrap wrap-narrow">
+
+      <div id="login-box">
+        <h1 class="h2">Panel</h1>
+        <label class="campo-nombre">
+          Contraseña de administración
+          <input type="password" id="input-password">
+        </label>
+        <button type="button" class="btn btn-primary" id="btn-entrar">Entrar</button>
+        <p id="login-error" class="firma-error" hidden>Contraseña incorrecta.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <h1 class="h2">Panel</h1>
+        <p class="section-sub">Entra una vez y navega a todo desde aquí, sin volver a poner la contraseña.</p>
+
+        <a class="panel-card destacada" href="/factura-admin.html">
+          <div class="panel-card-titulo">📄 Nueva factura</div>
+          <div class="panel-card-desc">Súbela una vez: se reparte sola en recordatorios, cuentas e historial.</div>
+        </a>
+
+        <div class="panel-grid">
+          <a class="panel-card" href="/citas-admin.html">
+            <div class="panel-card-titulo">📅 Citas</div>
+            <div class="panel-card-desc" id="resumen-citas">Ver y confirmar citas</div>
+          </a>
+          <a class="panel-card" href="/recordatorios-admin.html">
+            <div class="panel-card-titulo">🔔 Recordatorios</div>
+            <div class="panel-card-desc" id="resumen-recordatorios">ITV, revisión, catálogo</div>
+          </a>
+          <a class="panel-card" href="/historial-admin.html">
+            <div class="panel-card-titulo">🚗 Historial de vehículos</div>
+            <div class="panel-card-desc">Buscar, ver QR y etiqueta</div>
+          </a>
+          <a class="panel-card" href="/cuentas-admin.html">
+            <div class="panel-card-titulo">💶 Cuentas</div>
+            <div class="panel-card-desc" id="resumen-cuentas">IVA, recambios, mano de obra</div>
+          </a>
+          <a class="panel-card" href="/fichaje-admin.html">
+            <div class="panel-card-titulo">🕘 Fichaje</div>
+            <div class="panel-card-desc">Empleados y horas</div>
+          </a>
+          <a class="panel-card" href="/admin.html">
+            <div class="panel-card-titulo">✍️ Firma de órdenes</div>
+            <div class="panel-card-desc">Subir orden y ver firmadas</div>
+          </a>
+        </div>
+
+        <h2 class="h2" style="font-size:16px; margin-top:32px; color:var(--muted);">Enlaces para compartir con clientes</h2>
+        <div class="panel-grid">
+          <a class="panel-card panel-card-publica" href="/citas.html" target="_blank">
+            <div class="panel-card-titulo">Pedir cita</div>
+          </a>
+          <a class="panel-card panel-card-publica" href="/fichar.html" target="_blank">
+            <div class="panel-card-titulo">Fichar (empleados)</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/panel.js?v=1"></script>
+</body>
+</html>

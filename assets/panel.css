@@ -1,0 +1,22 @@
+.panel-card {
+  display: block; background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px 20px; color: var(--anthracite); margin-bottom: 14px;
+  transition: border-color .15s, transform .15s;
+}
+.panel-card:hover { border-color: var(--blue-bright); transform: translateY(-1px); text-decoration: none; }
+.panel-card-titulo { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+.panel-card-desc { font-size: 13px; color: var(--muted); }
+
+.panel-card.destacada {
+  background: linear-gradient(160deg, #0b3d91, #1a56c4); color: #fff; border: none;
+  padding: 24px 22px;
+}
+.panel-card.destacada .panel-card-titulo { font-size: 20px; color: #fff; }
+.panel-card.destacada .panel-card-desc { color: #d7e3fb; }
+
+.panel-card-publica { text-align: center; }
+.panel-card-publica .panel-card-titulo { font-size: 14px; }
+
+.panel-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 14px;
+}
