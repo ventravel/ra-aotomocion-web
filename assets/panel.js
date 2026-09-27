@@ -68,8 +68,9 @@
             if (a.fecha && diasHasta(hoy, a.fecha) <= AVISO_DIAS) urgentes++;
           });
         });
-        document.getElementById('resumen-recordatorios').textContent =
-          urgentes > 0 ? `⚠️ ${urgentes} próximos a vencer` : 'Todo al día';
+        const elRecordatorios = document.getElementById('resumen-recordatorios');
+        elRecordatorios.textContent = urgentes > 0 ? `${urgentes} próximos a vencer` : 'Todo al día';
+        elRecordatorios.classList.toggle('alerta', urgentes > 0);
       })
       .catch(() => {});
 
@@ -77,8 +78,9 @@
       .then((res) => res.json())
       .then(({ citas, hoy }) => {
         const pendientes = citas.filter((c) => c.fecha >= hoy && c.estado === 'pendiente').length;
-        document.getElementById('resumen-citas').textContent =
-          pendientes > 0 ? `${pendientes} pendiente(s) de confirmar` : 'Sin pendientes';
+        const elCitas = document.getElementById('resumen-citas');
+        elCitas.textContent = pendientes > 0 ? `${pendientes} pendiente(s) de confirmar` : 'Sin pendientes';
+        elCitas.classList.toggle('alerta', pendientes > 0);
       })
       .catch(() => {});
 
