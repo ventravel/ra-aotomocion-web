@@ -1,4 +1,5 @@
 .admin-v2 { background: #f4f6fb; }
+.admin-panel-intro { padding-bottom: 0; border-top: none; }
 
 .admin-head { padding: 40px 0 8px; }
 .admin-head .eyebrow-sm { color: var(--blue); }

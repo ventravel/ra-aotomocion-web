@@ -131,6 +131,7 @@ svg.icn {
   filter: none;
 }
 svg.icn.sm { width: 16px; height: 16px; }
+.icon-sprite { display: none; }
 
 /* Sections */
 section.block { padding: 64px 6vw; border-top: 1px solid var(--line); }
