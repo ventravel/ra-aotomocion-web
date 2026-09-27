@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
 <link rel="stylesheet" href="/assets/style.css?v=12">
-<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/admin.css?v=3">
 </head>
 <body>
 <header class="site">
@@ -78,13 +78,13 @@
             </span>
           </label>
 
-          <p class="campo-nombre" style="margin-bottom:0;">Avisos de este vehículo</p>
+          <p class="campo-nombre mb-0">Avisos de este vehículo</p>
           <datalist id="tipos-catalogo"></datalist>
           <div id="avisos-lista"></div>
-          <button type="button" class="btn btn-secondary btn-sm" id="btn-add-aviso" style="margin-top:8px;">+ Añadir aviso</button>
+          <button type="button" class="btn btn-secondary btn-sm mt-8" id="btn-add-aviso">+ Añadir aviso</button>
 
           <p id="recordatorio-error" class="firma-error" hidden></p>
-          <button type="submit" class="btn btn-primary" id="btn-guardar" style="margin-top:18px;">Guardar</button>
+          <button type="submit" class="btn btn-primary mt-18" id="btn-guardar">Guardar</button>
           <button type="button" class="btn btn-secondary" id="btn-cancelar-edicion" hidden>Cancelar edición</button>
         </form>
 
@@ -101,7 +101,7 @@
           </thead>
           <tbody id="tabla-catalogo-body"></tbody>
         </table>
-        <form id="form-catalogo" class="form-inline" style="margin-top:14px;">
+        <form id="form-catalogo" class="form-inline mt-14">
           <label class="campo-nombre">
             Nombre
             <input type="text" id="c-nombre" placeholder="Ej: Correa de accesorios" required>
@@ -118,7 +118,7 @@
         </form>
         <p id="catalogo-error" class="firma-error" hidden></p>
 
-        <h2 class="h2" style="margin-top:40px;">Vehículos</h2>
+        <h2 class="h2 mt-40">Vehículos</h2>
         <p class="section-sub">Los que vencen en 15 días o menos aparecen resaltados arriba.</p>
         <button type="button" class="btn btn-secondary btn-sm" id="btn-refrescar">Actualizar lista</button>
         <table class="tabla-ordenes">

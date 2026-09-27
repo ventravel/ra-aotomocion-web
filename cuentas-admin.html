@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
 <link rel="stylesheet" href="/assets/style.css?v=12">
-<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/admin.css?v=3">
 <link rel="stylesheet" href="/assets/cuentas.css?v=1">
 </head>
 <body>
@@ -43,7 +43,7 @@
 
         <div class="resumen-grid" id="resumen-grid"></div>
 
-        <h2 class="h2" style="font-size:20px; margin-top:32px;">Comparativa</h2>
+        <h2 class="h2 fs-20 mt-32">Comparativa</h2>
         <p class="section-sub">Cada círculo es un periodo: el tamaño según lo facturado, los colores según el reparto (mano de obra / recambios / IVA).</p>
         <div class="comparativa-selector">
           <button type="button" class="btn btn-secondary btn-sm comp-btn" data-comp="mes">Por mes</button>
@@ -51,10 +51,10 @@
           <button type="button" class="btn btn-secondary btn-sm comp-btn" data-comp="anio">Por año</button>
         </div>
         <div class="comparativa-leyenda">
-          <span><i style="background:#1a7a4c"></i> Mano de obra (ganado)</span>
-          <span><i style="background:#4caf7d"></i> Margen en recambios (ganado)</span>
-          <span><i style="background:#b3261e"></i> Coste de recambios (pagado)</span>
-          <span><i style="background:#b7bdc9"></i> IVA (ni gana ni pierde)</span>
+          <span><i class="swatch-labor"></i> Mano de obra (ganado)</span>
+          <span><i class="swatch-margen"></i> Margen en recambios (ganado)</span>
+          <span><i class="swatch-coste"></i> Coste de recambios (pagado)</span>
+          <span><i class="swatch-iva"></i> IVA (ni gana ni pierde)</span>
         </div>
         <div class="comparativa-row" id="comparativa-row"></div>
 
@@ -64,7 +64,7 @@
         </div>
 
         <div id="form-mov-wrap" hidden>
-          <h2 class="h2" id="form-mov-titulo" style="font-size:20px; margin-top:24px;">Nuevo movimiento</h2>
+          <h2 class="h2 fs-20 mt-24" id="form-mov-titulo">Nuevo movimiento</h2>
 
           <label class="campo-nombre">
             Foto o PDF de la factura
@@ -121,12 +121,12 @@
             </div>
 
             <p id="mov-error" class="firma-error" hidden></p>
-            <button type="submit" class="btn btn-primary" style="margin-top:18px;">Guardar</button>
+            <button type="submit" class="btn btn-primary mt-18">Guardar</button>
             <button type="button" class="btn btn-secondary" id="btn-cancelar-mov">Cancelar</button>
           </form>
         </div>
 
-        <h2 class="h2" style="margin-top:36px;">Movimientos</h2>
+        <h2 class="h2 mt-36">Movimientos</h2>
         <div id="lista-movimientos"></div>
       </div>
 

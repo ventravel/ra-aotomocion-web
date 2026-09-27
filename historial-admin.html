@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=2">
 <link rel="stylesheet" href="/assets/style.css?v=12">
-<link rel="stylesheet" href="/assets/admin.css?v=2">
+<link rel="stylesheet" href="/assets/admin.css?v=3">
 <link rel="stylesheet" href="/assets/historial.css?v=1">
 </head>
 <body>
@@ -36,15 +36,15 @@
         <h1 class="h2">Historial de vehículos</h1>
         <p class="section-sub">Busca una matrícula para ver o añadir una visita a su historial.</p>
 
-        <label class="campo-nombre" style="margin-top:18px;">
+        <label class="campo-nombre mt-18">
           Buscar por matrícula
           <input type="text" id="buscar-matricula" placeholder="Ej: 1234BCD">
         </label>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-buscar" style="margin-top:10px;">Buscar</button>
+        <button type="button" class="btn btn-secondary btn-sm mt-10" id="btn-buscar">Buscar</button>
         <p id="buscar-error" class="firma-error" hidden></p>
 
         <div id="vehiculo-nuevo-campos" hidden>
-          <p class="section-sub" style="margin-top:16px;">No hay ningún vehículo con esa matrícula. Rellena estos datos para crearlo.</p>
+          <p class="section-sub mt-16">No hay ningún vehículo con esa matrícula. Rellena estos datos para crearlo.</p>
           <label class="campo-nombre">
             Vehículo (marca y modelo)
             <input type="text" id="nuevo-vehiculo">
@@ -61,7 +61,7 @@
               <div class="matricula" id="veh-matricula"></div>
               <div class="modelo" id="veh-modelo"></div>
             </div>
-            <span class="btn btn-secondary btn-sm" style="pointer-events:none;" id="veh-num-visitas"></span>
+            <span class="btn btn-secondary btn-sm no-pointer" id="veh-num-visitas"></span>
           </div>
 
           <div class="compartir-box">
@@ -69,16 +69,16 @@
             <div class="compartir-info">
               <b>Enlace para el cliente</b>
               <span class="link" id="veh-link"></span>
-              <p class="section-sub" style="font-size:13px;">Compártelo por WhatsApp o imprime el QR en una etiqueta para el vehículo.</p>
+              <p class="section-sub fs-13">Compártelo por WhatsApp o imprime el QR en una etiqueta para el vehículo.</p>
             </div>
             <button type="button" class="btn btn-secondary btn-sm" id="btn-copiar-enlace">Copiar enlace</button>
           </div>
 
-          <a class="btn btn-secondary btn-sm" id="btn-ver-etiqueta" href="#" target="_blank" style="margin-bottom:20px;">Ver / imprimir etiqueta</a>
+          <a class="btn btn-secondary btn-sm mb-20" id="btn-ver-etiqueta" href="#" target="_blank">Ver / imprimir etiqueta</a>
         </div>
 
         <div id="form-visita-wrap" hidden>
-          <h2 class="h2" style="font-size:20px;">Añadir nueva visita</h2>
+          <h2 class="h2 fs-20">Añadir nueva visita</h2>
 
           <div class="factura-box">
             <label class="campo-nombre">
@@ -108,22 +108,22 @@
               <input type="number" id="v-km">
             </label>
             <p id="visita-error" class="firma-error" hidden></p>
-            <button type="submit" class="btn btn-primary" style="margin-top:18px;">Guardar visita</button>
+            <button type="submit" class="btn btn-primary mt-18">Guardar visita</button>
           </form>
 
           <div class="foto-paso-aparte">
             <p class="section-sub">📷 La foto es opcional y la puedes añadir ahora o más tarde, desde el móvil, sin perder lo que ya se guardó.</p>
-            <label class="campo-nombre" style="margin:0;">
+            <label class="campo-nombre m-0">
               Foto del vehículo
               <input type="file" id="v-foto" accept="image/*" capture="environment">
             </label>
             <div class="foto-upload-preview" id="v-foto-preview">Vista previa de la foto aquí</div>
           </div>
 
-          <h2 class="h2" style="font-size:20px; margin-top:36px;">Visitas registradas</h2>
+          <h2 class="h2 fs-20 mt-36">Visitas registradas</h2>
           <div id="lista-visitas"></div>
 
-          <button type="button" class="link-borrar" id="btn-borrar-vehiculo" style="margin-top:20px;">Eliminar este vehículo del historial</button>
+          <button type="button" class="link-borrar mt-20" id="btn-borrar-vehiculo">Eliminar este vehículo del historial</button>
         </div>
 
       </div>
