@@ -52,20 +52,62 @@ function extraerBaseIvaTotal(texto) {
 
 // Las facturas que emite el propio taller (formato CSS) traen una linea-resumen
 // final: "Mano de ObraPiezasPinturaOtrosBase ImponibleImpuestosTOTAL IMPORTE"
-// seguida de los 7 importes. Es mucho mas fiable que sumar partida por partida.
+// seguida de los 7 importes PEGADOS SIN NINGUN ESPACIO entre ellos. Como el
+// formato de cada importe (miles con "." y decimales con ",") es el mismo que
+// el separador entre importes, la frontera entre uno y el siguiente es
+// ambigua a simple vista (ej: "156,80" + "1.040,00" se lee igual que
+// "156.801.040,00" si no se sabe dónde cortar). Probamos TODAS las formas de
+// trocear el bloque en exactamente 7 importes válidos y, si hay más de una,
+// nos quedamos con la que cuadra aritméticamente (manoObra+recambios+pintura+
+// otros = base, base+iva = total). Es mucho mas fiable que sumar partida por partida.
+const NUM_ANCLADO = new RegExp(`^${NUM}$`);
+
+function trocearSieteImportes(bloque) {
+  const n = bloque.length;
+  const candidatosDesde = (start) => {
+    const res = [];
+    for (let len = 4; start + len <= n && len <= 16; len++) {
+      const trozo = bloque.slice(start, start + len);
+      if (NUM_ANCLADO.test(trozo)) res.push(len);
+    }
+    return res;
+  };
+  const soluciones = [];
+  const partes = [];
+  (function buscar(pos) {
+    if (partes.length === 7) {
+      if (pos === n) soluciones.push(partes.slice());
+      return;
+    }
+    for (const len of candidatosDesde(pos)) {
+      partes.push(bloque.slice(pos, pos + len));
+      buscar(pos + len);
+      partes.pop();
+    }
+  })(0);
+  if (soluciones.length === 0) return null;
+  if (soluciones.length === 1) return soluciones[0];
+  // Desempate: la combinación cuyas sumas cuadren mejor con base y total.
+  let mejor = null;
+  let mejorError = Infinity;
+  for (const sol of soluciones) {
+    const [manoObra, recambios, pintura, otros, base, iva, total] = sol.map(toNum);
+    const errorBase = Math.abs((manoObra + recambios + pintura + otros) - base);
+    const errorTotal = Math.abs((base + iva) - total);
+    const error = errorBase + errorTotal;
+    if (error < mejorError) { mejorError = error; mejor = sol; }
+  }
+  return mejor;
+}
+
 function extraerResumenCSS(texto) {
   const cab = /Mano de Obra\s*Piezas\s*Pintura\s*Otros\s*Base\s*Imponible\s*Impuestos\s*TOTAL\s*IMPORTE/i;
-  const m = texto.match(new RegExp(cab.source + `\\s*\\n(${NUM})(${NUM})(${NUM})(${NUM})(${NUM})\\s*(${NUM})\\s*(${NUM})\\s*€`, 'i'));
+  const m = texto.match(new RegExp(cab.source + `\\s*\\n([-\\d.,]+)\\s*€`, 'i'));
   if (!m) return null;
-  return {
-    manoObra: toNum(m[1]),
-    recambios: toNum(m[2]),
-    pintura: toNum(m[3]),
-    otros: toNum(m[4]),
-    base: toNum(m[5]),
-    iva: toNum(m[6]),
-    total: toNum(m[7]),
-  };
+  const partes = trocearSieteImportes(m[1].replace(/\s+/g, ''));
+  if (!partes) return null;
+  const [manoObra, recambios, pintura, otros, base, iva, total] = partes.map(toNum);
+  return { manoObra, recambios, pintura, otros, base, iva, total };
 }
 
 function parseMovimiento(texto, tipo) {
