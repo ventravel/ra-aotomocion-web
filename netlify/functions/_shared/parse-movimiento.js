@@ -102,7 +102,10 @@ function trocearSieteImportes(bloque) {
 
 function extraerResumenCSS(texto) {
   const cab = /Mano de Obra\s*Piezas\s*Pintura\s*Otros\s*Base\s*Imponible\s*Impuestos\s*TOTAL\s*IMPORTE/i;
-  const m = texto.match(new RegExp(cab.source + `\\s*\\n([-\\d.,]+)\\s*€`, 'i'));
+  // Los importes pueden venir totalmente pegados o con algún espacio suelto
+  // entre unos y otros (varía según la factura); admitimos espacios/tabs
+  // sueltos dentro del bloque y los quitamos antes de trocearlo.
+  const m = texto.match(new RegExp(cab.source + `\\s*\\n([-\\d.,\\t ]+)\\s*€`, 'i'));
   if (!m) return null;
   const partes = trocearSieteImportes(m[1].replace(/\s+/g, ''));
   if (!partes) return null;

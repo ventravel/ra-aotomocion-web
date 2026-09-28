@@ -45,16 +45,24 @@ function extraerDatosFactura(texto, catalogo) {
   const matricula = matriculaMatch ? matriculaMatch[0] : '';
   if (!matricula) avisos.push('No se ha encontrado la matrícula automáticamente.');
 
-  // Marca y modelo: misma línea que la matrícula, tras los km
+  // Marca y modelo: misma línea que la matrícula, tras los km. Antes de la
+  // matrícula puede venir pegada la forma de pago (p.ej. "CONTADO"), así que
+  // los km no siempre están justo al principio de lo que queda: se buscan en
+  // cualquier punto de la línea (son la única tanda de dígitos que sobra) y
+  // el vehículo es lo que queda después.
   let vehiculo = '';
   let km = null;
   if (matricula) {
     const lineaMatricula = lineas.find((l) => l.includes(matricula));
     if (lineaMatricula) {
       const sinMatricula = lineaMatricula.replace(matricula, '');
-      const kmMatch = sinMatricula.match(/^\s*(\d+)\s*/);
-      if (kmMatch) km = Number(kmMatch[1]);
-      vehiculo = sinMatricula.replace(/^\s*\d+\s*/, '').trim();
+      const kmMatch = sinMatricula.match(/(\d+)/);
+      if (kmMatch) {
+        km = Number(kmMatch[1]);
+        vehiculo = sinMatricula.slice(kmMatch.index + kmMatch[0].length).trim();
+      } else {
+        vehiculo = sinMatricula.trim();
+      }
     }
   }
 
