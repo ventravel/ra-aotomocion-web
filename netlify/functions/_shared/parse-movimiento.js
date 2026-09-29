@@ -12,24 +12,27 @@ function toNum(s) {
   return Number(sign + (intPart || '0') + '.' + m[4]);
 }
 
-function fechaDDMMYYYYaISO(str) {
-  const m = /(\d{2})[/.](\d{2})[/.](\d{4})/.exec(str);
-  if (!m) return null;
-  return `${m[3]}-${m[2]}-${m[1]}`;
+// Año con 2 o 4 cifras (algunos proveedores usan "07/08/26" en vez de
+// "07/08/2026"); con 2 cifras se asume 20XX (siempre son facturas recientes).
+function fechaAISO(dd, mm, aa) {
+  const anio = aa.length === 4 ? Number(aa) : (Number(aa) <= 79 ? 2000 + Number(aa) : 1900 + Number(aa));
+  return `${anio}-${mm}-${dd}`;
 }
 
+const PATRON_FECHA = /(\d{2})[/.](\d{2})[/.](\d{4}|\d{2})/;
+
 function extraerFecha(texto) {
-  let m = texto.match(/\bFecha:?\s*\n?\s*(\d{2}[/.]\d{2}[/.]\d{4})/i);
-  if (m) return fechaDDMMYYYYaISO(m[1]);
+  let m = texto.match(new RegExp(`\\bFecha:?\\s*\\n?\\s*${PATRON_FECHA.source}`, 'i'));
+  if (m) return fechaAISO(m[1], m[2], m[3]);
   // Facturas de ITV (Applus): la etiqueta "Fecha:" sale muy lejos del valor
   // real en el texto extraído (el orden de lectura del PDF va desordenado) y
   // antes aparece la fecha de primera matriculación del vehículo, que no es
   // la que queremos. El número de factura (una racha larga de dígitos) sí
   // va siempre pegado justo delante de la fecha real.
-  m = texto.match(/\d{12,}\s*\n\s*(\d{2}[/.]\d{2}[/.]\d{4})/);
-  if (m) return fechaDDMMYYYYaISO(m[1]);
-  m = texto.match(/(\d{2}[/.]\d{2}[/.]\d{4})/);
-  return m ? fechaDDMMYYYYaISO(m[1]) : null;
+  m = texto.match(new RegExp(`\\d{12,}\\s*\\n\\s*${PATRON_FECHA.source}`));
+  if (m) return fechaAISO(m[1], m[2], m[3]);
+  m = texto.match(PATRON_FECHA);
+  return m ? fechaAISO(m[1], m[2], m[3]) : null;
 }
 
 // Intenta varios patrones conocidos (aprendidos de facturas reales de proveedores
