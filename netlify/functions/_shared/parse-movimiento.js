@@ -19,13 +19,36 @@ function fechaDDMMYYYYaISO(str) {
 }
 
 function extraerFecha(texto) {
-  const m = texto.match(/\bFecha:?\s*\n?\s*(\d{2}[/.]\d{2}[/.]\d{4})/i) || texto.match(/(\d{2}[/.]\d{2}[/.]\d{4})/);
+  let m = texto.match(/\bFecha:?\s*\n?\s*(\d{2}[/.]\d{2}[/.]\d{4})/i);
+  if (m) return fechaDDMMYYYYaISO(m[1]);
+  // Facturas de ITV (Applus): la etiqueta "Fecha:" sale muy lejos del valor
+  // real en el texto extraído (el orden de lectura del PDF va desordenado) y
+  // antes aparece la fecha de primera matriculación del vehículo, que no es
+  // la que queremos. El número de factura (una racha larga de dígitos) sí
+  // va siempre pegado justo delante de la fecha real.
+  m = texto.match(/\d{12,}\s*\n\s*(\d{2}[/.]\d{2}[/.]\d{4})/);
+  if (m) return fechaDDMMYYYYaISO(m[1]);
+  m = texto.match(/(\d{2}[/.]\d{2}[/.]\d{4})/);
   return m ? fechaDDMMYYYYaISO(m[1]) : null;
 }
 
 // Intenta varios patrones conocidos (aprendidos de facturas reales de proveedores
 // habituales del taller); si ninguno encaja, no se inventa nada.
 function extraerBaseIvaTotal(texto) {
+  // Facturas de ITV (Applus): el resumen final trae los importes en el orden
+  // "Total, Tasas, IVA, Base Imponible" (al revés de lo habitual) y con algún
+  // "0" suelto pegado a los importes por cómo se extrae el texto del PDF.
+  // Se activa solo si el texto es claramente de Applus, para no interferir
+  // con ningún otro proveedor.
+  if (/Applus/i.test(texto)) {
+    const mApplus = texto.match(new RegExp(
+      `(${NUM})\\s*\\n\\s*(${NUM})\\s+(${NUM})0?\\s+(${NUM})0?\\s*\\n\\s*Forma de pago`, 'i'
+    ));
+    if (mApplus) {
+      return { total: toNum(mApplus[1]), iva: toNum(mApplus[3]), base: toNum(mApplus[4]), metodo: 'applus-itv' };
+    }
+  }
+
   let m = texto.match(new RegExp(`BASE IMPONIBLE\\s*\\n(${NUM})[^\\n]*\\nI\\.?V\\.?A\\.?\\s*\\n(${NUM})[^\\n]*\\nTOTAL\\s*\\n(${NUM})`, 'i'));
   if (m) return { base: toNum(m[1]), iva: toNum(m[2]), total: toNum(m[3]), metodo: 'patron-1' };
 
